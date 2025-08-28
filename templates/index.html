@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grimório de Heróis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Grimório de Heróis</h1>
+        
+        <!-- Botão para criar um novo personagem -->
+        <div class="character-list">
+            <a href="/ficha/nova" class="new-character-button">Criar Novo Herói</a>
+        </div>
+
+        <!-- Lista de personagens existentes -->
+        <h2>Fichas Salvas</h2>
+        <div class="character-list">
+            <!-- Usamos um loop Jinja2 para percorrer a lista de fichas -->
+            {% for ficha in fichas %}
+                <a href="/ficha/{{ ficha.id }}" class="character-item">
+                    <h3>{{ ficha.get('nome_personagem', 'Herói Sem Nome') }}</h3>
+                    <p>{{ ficha.get('classe_personagem', 'Aventureiro') }}, Nível {{ ficha.get('nivel_personagem', '1') }}</p>
+                </a>
+            {% else %}
+                <p>Nenhuma ficha encontrada. Crie seu primeiro herói!</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
