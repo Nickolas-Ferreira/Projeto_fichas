@@ -1,24 +1,32 @@
-/* Importa a fonte do Google Fonts */
+/* ==========================================================================
+== CONFIGURAÇÕES GERAIS E FONTES ==
+==========================================================================
+Aqui importamos a fonte especial e definimos o estilo base para toda a página.
+*/
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 
 body {
-    font-family: Georgia, serif;
-    background-color: #3d2c1d;
+    font-family: Georgia, serif; /* Fonte padrão para textos longos */
+    background-color: #3d2c1d; /* Cor de fundo de madeira escura */
     background-image: url('https://www.transparenttextures.com/patterns/wood-wall.png');
-    color: #000000;
+    color: #000000; /* Cor padrão do texto: PRETO */
     padding: 20px;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 20px auto;
-    background-color: #f5eeda; 
+    background-color: #f5eeda; /* Cor de fundo do pergaminho */
     padding: 30px;
     border: 2px solid #c8bca7;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4); /* Sombra para dar profundidade */
 }
 
-/* --- ELEMENTOS GERAIS --- */
+/* ==========================================================================
+== ESTILOS GERAIS PARA ELEMENTOS DA FICHA ==
+==========================================================================
+Estilos para títulos, caixas, inputs e outros elementos que se repetem.
+*/
 h3 {
     font-family: 'MedievalSharp', cursive;
     text-align: center;
@@ -29,7 +37,14 @@ h3 {
     font-size: 1.2em;
     color: #5c4033;
 }
-label { font-weight: bold; font-size: 0.7em; text-transform: uppercase; color: #5c4033; }
+
+label {
+    font-weight: bold;
+    font-size: 0.7em;
+    text-transform: uppercase;
+    color: #5c4033;
+}
+
 input[type="text"], input[type="number"], textarea {
     width: 100%;
     padding: 5px;
@@ -41,49 +56,324 @@ input[type="text"], input[type="number"], textarea {
     color: #000000;
     box-sizing: border-box;
 }
-textarea { min-height: 80px; resize: vertical; }
-.box { border: 2px solid #c8bca7; border-radius: 8px; padding: 10px; }
-.box-simples { border: 2px solid #c8bca7; border-radius: 8px; padding: 5px; text-align: center; }
 
-/* --- HEADER --- */
-.header-info .character-name { font-family: 'MedievalSharp', cursive; font-size: 2.2em; border-bottom: 2px solid #5c4033; width: 50%; }
-.details-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
 
-/* --- GRID PRINCIPAL --- */
-.ficha-grid { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 20px; margin-top: 20px; }
-.coluna-esquerda, .coluna-central, .coluna-direita { display: flex; flex-direction: column; gap: 15px; }
+.box {
+    border: 2px solid #c8bca7;
+    border-radius: 8px;
+    padding: 10px;
+}
 
-/* --- COLUNA ESQUERDA --- */
-.atributos-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
-.atributo-box { border: 2px solid #c8bca7; border-radius: 8px; padding: 10px; text-align: center; }
-.atributo-box input { font-size: 2em; font-weight: bold; text-align: center; border: none; width: 100%; }
-.proficiencia-testes-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; grid-template-areas: "insp prof" "testes testes" "pericias pericias"; }
-.inspiracao { grid-area: insp; }
-.proficiencia { grid-area: prof; }
-.testes_resistencia { grid-area: testes; }
-.pericias { grid-area: pericias; }
-.teste-item, .pericia-item { display: flex; align-items: center; gap: 8px; }
-.teste-item label, .pericia-item label { text-transform: none; }
-.percepcao-passiva input { font-weight: bold; }
+.box-simples {
+    border: 2px solid #c8bca7;
+    border-radius: 8px;
+    padding: 5px;
+    text-align: center;
+}
 
-/* --- COLUNA CENTRAL --- */
-.combate-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.combate-item { text-align: center; }
-.combate-item input { font-size: 1.8em; font-weight: bold; text-align: center; }
-.pontos-vida { text-align: center; }
-.pontos-vida .pv-max { font-size: 0.8em; text-align: right; border-bottom: none; }
-.pontos-vida textarea { font-size: 2.5em; text-align: center; min-height: 80px; font-weight: bold; }
-.pontos-vida-temp { text-align: center; }
-.dados-vida-morte { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.dados-vida { text-align: center; }
-.dados-vida input { font-size: 0.8em; text-align: left; }
-.testes-morte { font-size: 0.8em; text-align: center; }
-.testes-morte .sucessos, .testes-morte .fracassos { display: flex; align-items: center; justify-content: space-around; }
+/* ==========================================================================
+== CABEÇALHO (HEADER) ==
+==========================================================================
+Estilos para o nome do personagem e as informações do topo.
+*/
+.header-info {
+    margin-bottom: 20px;
+}
 
-/* --- COLUNA DIREITA --- */
-.personalidade textarea { min-height: 60px; }
+.header-info .character-name {
+    font-family: 'MedievalSharp', cursive;
+    font-size: 2.2em;
+    border-bottom: 2px solid #5c4033;
+    width: 50%;
+}
 
-/* --- FOOTER --- */
-.button-group { margin-top: 30px; display: flex; gap: 15px; }
-button, .back-button { font-family: 'MedievalSharp', cursive; font-size: 1.2em; padding: 10px 20px; border: 2px solid #5c4033; background-color: #e4d5b7; color: #000000; cursor: pointer; text-decoration: none; text-align: center; flex-grow: 1; }
-button:hover, .back-button:hover { background-color: #d3c4a5; }
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+/* ==========================================================================
+== GRID PRINCIPAL DA FICHA ==
+==========================================================================
+Esta é a estrutura que organiza as 4 colunas e a linha inferior.
+*/
+.ficha-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1fr 1.2fr 1.2fr; /* 4 colunas */
+    grid-template-areas:
+        "col-atributos col-pericias col-combate col-personalidade"
+        "col-equipamento col-equipamento col-equipamento col-equipamento";
+    gap: 20px;
+}
+
+/* Atribuição de cada seção à sua área no grid */
+.coluna-atributos { grid-area: col-atributos; }
+.coluna-pericias { grid-area: col-pericias; }
+.coluna-combate { grid-area: col-combate; }
+.coluna-personalidade { grid-area: col-personalidade; }
+.box.equipamento { grid-area: col-equipamento; margin-top: 15px; }
+
+/* Configuração base para todas as colunas */
+.coluna-atributos, .coluna-pericias, .coluna-combate, .coluna-personalidade {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* ==========================================================================
+== COLUNA 1: ATRIBUTOS ==
+==========================================================================
+*/
+.atributos-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.atributo-box {
+    border: 2px solid #5c4033;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+
+.atributo-box .valor-atributo {
+    font-size: 2.5em;
+    font-weight: bold;
+    border: none;
+}
+
+.atributo-box .modificador-atributo {
+    font-size: 1.5em;
+    font-weight: bold;
+    border: 2px solid #5c4033;
+    background-color: #f5eeda;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin: 10px auto 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ==========================================================================
+== COLUNA 2: PERÍCIAS E RESISTÊNCIAS ==
+==========================================================================
+*/
+.teste-item, .pericia-item {
+    display: grid;
+    grid-template-columns: auto 40px 1fr;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+}
+
+.valor-pericia {
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #c8bca7;
+    padding: 2px;
+}
+
+.pericia-item label, .teste-item label {
+    text-transform: none;
+    font-size: 0.9em;
+}
+
+/* ==========================================================================
+== COLUNA 3: COMBATE ==
+==========================================================================
+*/
+.combate-superior-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+}
+
+.combate-item {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    padding: 10px;
+}
+
+.combate-item.ca-box {
+    border-radius: 15px 15px 40% 40% / 15px 15px 25% 25%;
+}
+
+.combate-item input {
+    font-size: 2.5em;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+}
+
+.combate-item label {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'MedievalSharp', cursive;
+    text-transform: none;
+    font-size: 0.9em;
+}
+
+.pontos-vida, .pontos-vida-temp {
+    position: relative;
+    padding: 10px;
+    padding-bottom: 25px;
+}
+
+.pv-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.pv-header .pv-max {
+    width: 60px;
+    border-bottom: 1px solid #c8bca7;
+    text-align: right;
+}
+
+.pontos-vida textarea {
+    font-size: 4em;
+    font-weight: bold;
+    text-align: center;
+    min-height: 90px;
+    border: none;
+}
+
+.pontos-vida-temp textarea {
+    font-size: 2em;
+    text-align: center;
+    min-height: 80px;
+    border: none;
+}
+
+.pv-label {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'MedievalSharp', cursive;
+    font-size: 1em;
+}
+
+.hp-controls {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.hp-input {
+    width: 70px !important;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #c8bca7 !important;
+    border-radius: 5px;
+}
+
+.hp-btn {
+    font-size: 1.5em;
+    font-weight: bold;
+    border-radius: 50%;
+    border: 2px solid #5c4033;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+}
+
+.hp-btn.cura { background-color: #c3e6cb; color: #155724; }
+.hp-btn.dano { background-color: #f5c6cb; color: #721c24; }
+
+/* ==========================================================================
+== COLUNA 4: PERSONALIDADE E TALENTOS ==
+==========================================================================
+*/
+.coluna-personalidade .box.personalidade textarea {
+    min-height: 50px;
+}
+
+.coluna-personalidade .box.caracteristicas-talentos {
+    flex-grow: 1; /* Faz esta caixa ocupar mais espaço vertical */
+}
+
+/* ==========================================================================
+== LINHA INFERIOR: EQUIPAMENTO ==
+==========================================================================
+*/
+.equipamento-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+.moedas {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.moeda-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.moeda-item label {
+    font-family: 'MedievalSharp', cursive;
+    width: 30px;
+}
+
+.moeda-item input {
+    width: 80px;
+    text-align: center;
+    border: 1px solid #c8bca7;
+    border-radius: 4px;
+}
+
+.equipamento-lista {
+    flex-grow: 1;
+}
+
+.equipamento-lista textarea {
+    height: 100%;
+    min-height: 150px;
+}
+
+/* ==========================================================================
+== RODAPÉ (FOOTER) ==
+==========================================================================
+*/
+.button-group {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+}
+
+button, .back-button {
+    font-family: 'MedievalSharp', cursive;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    border: 2px solid #5c4033;
+    background-color: #e4d5b7;
+    color: #000000;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    flex-grow: 1;
+}
+
+button:hover, .back-button:hover {
+    background-color: #d3c4a5;
+}

@@ -47,6 +47,7 @@ def salvar_ficha(ficha_id):
         "antecedente": request.form.get("antecedente"), "nome_jogador": request.form.get("nome_jogador"),
         "raca": request.form.get("raca"), "tendencia": request.form.get("tendencia"),
         "pontos_experiencia": request.form.get("pontos_experiencia"),
+        "tamanho": request.form.get("tamanho"),
         
         # Coluna Esquerda
         "forca": request.form.get("forca"), "destreza": request.form.get("destreza"),
