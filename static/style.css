@@ -1,26 +1,141 @@
 /* ==========================================================================
 == CONFIGURAÇÕES GERAIS E FONTES ==
 ==========================================================================
-Aqui importamos a fonte especial e definimos o estilo base para toda a página.
 */
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 
 body {
-    font-family: Georgia, serif; /* Fonte padrão para textos longos */
-    background-color: #3d2c1d; /* Cor de fundo de madeira escura */
-    background-image: url('https://www.transparenttextures.com/patterns/wood-wall.png');
-    color: #000000; /* Cor padrão do texto: PRETO */
+    font-family: Georgia, serif;
+    background-color: #1a1a1a;
+    background-image: url('https://www.transparenttextures.com/patterns/dark-wood.png');
+    color: #3a2d1f;
+    margin: 0;
     padding: 20px;
+    box-sizing: border-box;
 }
 
 .container {
     max-width: 1400px;
-    margin: 20px auto;
-    background-color: #f5eeda; /* Cor de fundo do pergaminho */
-    padding: 30px;
+    height: 95vh;
+    margin: 0 auto;
+    background-image: url('https://i.pinimg.com/originals/e7/5b/45/e75b453305ed83a540581c3e6b573c5d.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 40px 60px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.7);
     border: 2px solid #c8bca7;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.4); /* Sombra para dar profundidade */
+    overflow-y: auto; /* Barra de rolagem interna */
 }
+
+/* Estilo para a barra de rolagem */
+.container::-webkit-scrollbar { width: 12px; }
+.container::-webkit-scrollbar-track { background: rgba(245, 238, 218, 0.5); }
+.container::-webkit-scrollbar-thumb { background-color: #5c4033; border-radius: 20px; border: 3px solid rgba(245, 238, 218, 0.5); }
+
+/* ==========================================================================
+== O PERGAMINHO FIXO E CENTRALIZADO ==
+==========================================================================
+*/
+.pergaminho-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2vh 2vw; /* Pequena margem nas bordas da tela */
+    min-height: 100vh; /* Ocupa no mínimo a altura toda da tela */
+}
+
+.pergaminho-content {
+    width: 100%;
+    max-width: 1400px; /* Largura máxima do pergaminho */
+    height: 94vh; /* Altura fixa, ocupando 94% da tela */
+    
+    background-image: url('https://static.vecteezy.com/system/resources/previews/012/981/788/non_2x/old-parchment-paper-sheet-vintage-aged-or-texture-background-png.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    padding: 40px 60px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+    border: 2px solid #c8bca7;
+    
+    /* A MÁGICA DA BARRA DE ROLAGEM INTERNA */
+    overflow-y: auto; 
+}
+
+/* Estilo para a barra de rolagem */
+.pergaminho-content::-webkit-scrollbar { width: 12px; }
+.pergaminho-content::-webkit-scrollbar-track { background: rgba(245, 238, 218, 0.5); }
+.pergaminho-content::-webkit-scrollbar-thumb { background-color: #5c4033; border-radius: 20px; border: 3px solid rgba(245, 238, 218, 0.5); }
+
+/* ==========================================================================
+== ESTILOS GERAIS PARA ELEMENTOS DA FICHA ==
+==========================================================================
+*/
+
+/* ==========================================================================
+== ESTILOS GERAIS PARA ELEMENTOS DA FICHA ==
+==========================================================================
+*/
+.box { border: 2px solid rgba(92, 64, 51, 0.3); border-radius: 8px; padding: 10px; background-color: rgba(245, 238, 218, 0.7); }
+.box-simples { border: 2px solid rgba(92, 64, 51, 0.3); border-radius: 8px; padding: 5px; text-align: center; background-color: rgba(245, 238, 218, 0.7); }
+/* ... (outros estilos gerais) ... */
+h3 { font-family: 'MedievalSharp', cursive; text-align: center; border-bottom: 1px solid rgba(92, 64, 51, 0.4); padding-bottom: 5px; margin-top: 0; margin-bottom: 10px; font-size: 1.2em; color: #5c4033; }
+label { font-weight: bold; font-size: 0.7em; text-transform: uppercase; color: #5c4033; }
+input[type="text"], input[type="number"], textarea { width: 100%; padding: 5px; border: none; border-bottom: 1px solid rgba(92, 64, 51, 0.3); background-color: transparent; font-size: 1em; font-family: Georgia, serif; color: #3a2d1f; box-sizing: border-box; }
+textarea { min-height: 80px; resize: vertical; }
+
+h3 {
+    font-family: 'MedievalSharp', cursive;
+    text-align: center;
+    border-bottom: 1px solid rgba(92, 64, 51, 0.4);
+    padding-bottom: 5px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    color: #5c4033;
+}
+
+label {
+    font-weight: bold;
+    font-size: 0.7em;
+    text-transform: uppercase;
+    color: #5c4033;
+}
+
+input[type="text"], input[type="number"], textarea {
+    width: 100%;
+    padding: 5px;
+    border: none;
+    border-bottom: 1px solid rgba(92, 64, 51, 0.3);
+    background-color: transparent;
+    font-size: 1em;
+    font-family: Georgia, serif;
+    color: #3a2d1f;
+    box-sizing: border-box;
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* CAIXAS INTERNAS COM FUNDO SEMI-TRANSPARENTE */
+.box {
+    border: 2px solid rgba(92, 64, 51, 0.3);
+    border-radius: 8px;
+    padding: 10px;
+    background-color: rgba(245, 238, 218, 0.7); /* Fundo cor de pergaminho com 70% de opacidade */
+}
+
+.box-simples {
+    border: 2px solid rgba(92, 64, 51, 0.3);
+    border-radius: 8px;
+    padding: 5px;
+    text-align: center;
+    background-color: rgba(245, 238, 218, 0.7);
+}
+
 
 /* ==========================================================================
 == ESTILOS GERAIS PARA ELEMENTOS DA FICHA ==
@@ -78,41 +193,26 @@ textarea {
 /* ==========================================================================
 == CABEÇALHO (HEADER) ==
 ==========================================================================
-Estilos para o nome do personagem e as informações do topo.
 */
-.header-info {
-    margin-bottom: 20px;
-}
-
-.header-info .character-name {
-    font-family: 'MedievalSharp', cursive;
-    font-size: 2.2em;
-    border-bottom: 2px solid #5c4033;
-    width: 50%;
-}
-
-.details-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    margin-top: 15px;
-}
+.header-info { margin-bottom: 20px; }
+.header-info .character-name { font-family: 'MedievalSharp', cursive; font-size: 2.2em; border-bottom: 2px solid #5c4033; width: 50%; }
+.details-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
 
 /* ==========================================================================
-== GRID PRINCIPAL DA FICHA ==
+== GRID PRINCIPAL DA FICHA (CORRIGIDO) ==
 ==========================================================================
-Esta é a estrutura que organiza as 4 colunas e a linha inferior.
 */
 .ficha-grid {
     display: grid;
     grid-template-columns: 0.8fr 1fr 1.2fr 1.2fr; /* 4 colunas */
+    /* A CORREÇÃO ESTÁ AQUI */
     grid-template-areas:
         "col-atributos col-pericias col-combate col-personalidade"
         "col-equipamento col-equipamento col-equipamento col-equipamento";
     gap: 20px;
 }
 
-/* Atribuição de cada seção à sua área no grid */
+/* Atribuição das áreas aos elementos */
 .coluna-atributos { grid-area: col-atributos; }
 .coluna-pericias { grid-area: col-pericias; }
 .coluna-combate { grid-area: col-combate; }
@@ -126,28 +226,49 @@ Esta é a estrutura que organiza as 4 colunas e a linha inferior.
     gap: 15px;
 }
 
+
 /* ==========================================================================
-== COLUNA 1: ATRIBUTOS ==
+== COLUNA 1: ATRIBUTOS (ATUALIZADO) ==
 ==========================================================================
 */
+.box-simples input {
+    text-align: center; /* MUDANÇA APLICADA AQUI */
+    font-weight: bold;
+    font-size: 1.5em;
+    border: none;
+}
+
 .atributos-grid {
-  display: grid;
-    grid-template-columns: 1fr 1fr;
-    flex-direction: column;
-    gap: 5px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
 }
 
 .atributo-box {
     border: 2px solid #5c4033;
     border-radius: 8px;
-    padding: 10px;
+    padding: 15px 10px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.atributo-box label {
+    font-family: 'MedievalSharp', cursive;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
 }
 
 .atributo-box .valor-atributo {
     font-size: 2.5em;
     font-weight: bold;
     border: none;
+    padding: 5px 0;
+    text-align: center; /* MUDANÇA APLICADA AQUI */
 }
 
 .atributo-box .modificador-atributo {
@@ -158,22 +279,31 @@ Esta é a estrutura que organiza as 4 colunas e a linha inferior.
     border-radius: 50%;
     width: 50px;
     height: 50px;
-    margin: 10px auto 0;
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+
 /* ==========================================================================
-== COLUNA 2: PERÍCIAS E RESISTÊNCIAS ==
+== COLUNA 2: PERÍCIAS E RESISTÊNCIAS (ATUALIZADO) ==
 ==========================================================================
 */
+.testes_resistencia, .pericias {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
 .teste-item, .pericia-item {
     display: grid;
-    grid-template-columns: auto 40px 1fr;
+    /* Colunas para: Proficiência | Valor | Nome da Perícia | Especialização */
+    grid-template-columns: auto 40px 1fr auto;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 5px;
+    gap: 10px;
+    width: 95%;
 }
 
 .valor-pericia {
@@ -185,8 +315,43 @@ Esta é a estrutura que organiza as 4 colunas e a linha inferior.
 
 .pericia-item label, .teste-item label {
     text-transform: none;
-    font-size: 0.9em;
+    font-size: 1em;
+    text-align: left;
 }
+
+/* Estilo para transformar checkboxes em círculos */
+.prof-check, .exp-check {
+    -webkit-appearance: none; /* Remove o estilo padrão */
+    appearance: none;
+    background-color: transparent;
+    margin: 0;
+    font: inherit;
+    color: #5c4033;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid currentColor;
+    border-radius: 50%; /* O segredo do círculo! */
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+}
+
+/* Estilo para o círculo interno quando marcado */
+.prof-check::before, .exp-check::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em #5c4033;
+}
+
+.prof-check:checked::before, .exp-check:checked::before {
+    transform: scale(1);
+}
+
 
 /* ==========================================================================
 == COLUNA 3: COMBATE ==

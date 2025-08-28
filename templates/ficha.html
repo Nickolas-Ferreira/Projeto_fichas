@@ -7,98 +7,106 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <form action="/salvar/{{ ficha.get('id', 'nova') }}" method="POST">
-            
-            <!-- 
-            ==========================================================================
-            == CABEÇALHO (HEADER) ==
-            ==========================================================================
-            Esta seção contém as informações básicas do personagem na parte superior.
-            -->
-            <header class="header-info">
-                <input type="text" name="nome_personagem" placeholder="Nome do Personagem" value="{{ ficha.get('nome_personagem', '') }}" class="character-name">
-                <div class="details-grid">
-                    <input type="text" name="classe_nivel" placeholder="Classe & Nível" value="{{ ficha.get('classe_nivel', '') }}">
-                    <input type="text" name="antecedente" placeholder="Antecedente" value="{{ ficha.get('antecedente', '') }}">
-                    <input type="text" name="nome_jogador" placeholder="Nome do Jogador" value="{{ ficha.get('nome_jogador', '') }}">
-                    <input type="text" name="raca" placeholder="Raça" value="{{ ficha.get('raca', '') }}">
-                    <input type="text" name="tendencia" placeholder="Tendência" value="{{ ficha.get('tendencia', '') }}">
-                    <input type="text" name="pontos_experiencia" placeholder="Pontos de Experiência" value="{{ ficha.get('pontos_experiencia', '') }}">
-                  <!-- NOVO SELETOR DE TAMANHO -->
-    <select name="tamanho" id="tamanho-select">
-        <option value="minusculo" {% if ficha.get('tamanho') == 'minusculo' %}selected{% endif %}>Minúsculo</option>
-        <option value="medio" {% if not ficha.get('tamanho') or ficha.get('tamanho') == 'medio' %}selected{% endif %}>Médio</option>
-        <option value="grande" {% if ficha.get('tamanho') == 'grande' %}selected{% endif %}>Grande</option>
-    </select>
-</div>
-                </div>
-            </header>
-
-            <!-- 
-            ==========================================================================
-            == CORPO PRINCIPAL DA FICHA (MAIN GRID) ==
-            ==========================================================================
-            Esta é a grade principal que organiza todas as colunas da ficha.
-            -->
-            <main class="ficha-grid">
+    <!-- 
+    ==========================================================================
+    == CONTAINER DO PERGAMINHO ==
+    ==========================================================================
+    Estas duas divs criam o efeito de pergaminho fixo e centralizado na tela.
+    'pergaminho-container' centraliza tudo.
+    'pergaminho-content' é o pergaminho em si, com a imagem e a barra de rolagem.
+    -->
+    <div class="pergaminho-container">
+        <div class="pergaminho-content">
+            <form action="/salvar/{{ ficha.get('id', 'nova') }}" method="POST">
+                
+                <!-- 
+                ==========================================================================
+                == CABEÇALHO (HEADER) ==
+                ==========================================================================
+                Esta seção contém as informações básicas do personagem na parte superior.
+                -->
+                <header class="header-info">
+                    <input type="text" name="nome_personagem" placeholder="Nome do Personagem" value="{{ ficha.get('nome_personagem', '') }}" class="character-name">
+                    <div class="details-grid">
+                        <input type="text" name="classe_nivel" placeholder="Classe & Nível" value="{{ ficha.get('classe_nivel', '') }}">
+                        <input type="text" name="antecedente" placeholder="Antecedente" value="{{ ficha.get('antecedente', '') }}">
+                        <input type="text" name="nome_jogador" placeholder="Nome do Jogador" value="{{ ficha.get('nome_jogador', '') }}">
+                        <input type="text" name="raca" placeholder="Raça" value="{{ ficha.get('raca', '') }}">
+                        <input type="text" name="tendencia" placeholder="Tendência" value="{{ ficha.get('tendencia', '') }}">
+                        <input type="text" name="pontos_experiencia" placeholder="Pontos de Experiência" value="{{ ficha.get('pontos_experiencia', '') }}">
+                        <select name="tamanho" id="tamanho-select">
+                            <option value="minusculo" {% if ficha.get('tamanho') == 'minusculo' %}selected{% endif %}>Minúsculo</option>
+                            <option value="medio" {% if not ficha.get('tamanho') or ficha.get('tamanho') == 'medio' %}selected{% endif %}>Médio</option>
+                            <option value="grande" {% if ficha.get('tamanho') == 'grande' %}selected{% endif %}>Grande</option>
+                        </select>
+                    </div>
+                </header>
 
                 <!-- 
                 ==========================================================================
-                == COLUNA 1: ATRIBUTOS ==
+                == CORPO PRINCIPAL DA FICHA (MAIN GRID) ==
                 ==========================================================================
-                Contém Inspiração, Proficiência, os 6 atributos principais e Percepção Passiva.
+                Esta é a grade principal que organiza todas as colunas da ficha.
                 -->
-                <div class="coluna-atributos">
-                     <div class="box-simples proficiencia"><input type="text" id="bonus-proficiencia" name="bonus_proficiencia" value="{{ ficha.get('bonus_proficiencia', '+2') }}"><label>Bônus de Proficiência</label></div>
-                    <div class="atributos-grid">
-                        <div class="atributo-box" data-atributo="forca"> <label>Força</label> <input type="number" name="forca" class="valor-atributo" value="{{ ficha.get('forca', '10') }}"> <div class="modificador-atributo">+0</div> </div>
-                        <div class="atributo-box" data-atributo="destreza"> <label>Destreza</label> <input type="number" name="destreza" class="valor-atributo" value="{{ ficha.get('destreza', '10') }}"> <div class="modificador-atributo">+0</div> </div>
-                        <div class="atributo-box" data-atributo="constituicao"> <label>Constituição</label> <input type="number" name="constituicao" class="valor-atributo" value="{{ ficha.get('constituicao', '10') }}"> <div class="modificador-atributo">+0</div> </div>
-                        <div class="atributo-box" data-atributo="inteligencia"> <label>Inteligência</label> <input type="number" name="inteligencia" class="valor-atributo" value="{{ ficha.get('inteligencia', '10') }}"> <div class="modificador-atributo">+0</div> </div>
-                        <div class="atributo-box" data-atributo="sabedoria"> <label>Sabedoria</label> <input type="number" name="sabedoria" class="valor-atributo" value="{{ ficha.get('sabedoria', '10') }}"> <div class="modificador-atributo">+0</div> </div>
-                        <div class="atributo-box" data-atributo="carisma"> <label>Carisma</label> <input type="number" name="carisma" class="valor-atributo" value="{{ ficha.get('carisma', '10') }}"> <div class="modificador-atributo">+0</div> </div>
-                    </div>
-                    <div class="box-simples percepcao-passiva"><input type="text" name="sabedoria_passiva" value="{{ ficha.get('sabedoria_passiva', '10') }}"><label>Sabedoria Passiva (Percepção)</label></div>
-                </div>
+                <main class="ficha-grid">
 
-                <!-- 
-                ==========================================================================
-                == COLUNA 2: PERÍCIAS E RESISTÊNCIAS ==
-                ==========================================================================
-                Contém os Testes de Resistência e a lista completa de Perícias.
-                -->
-                <div class="coluna-pericias">
-                    <div class="box-simples inspiracao"><input type="text" name="inspiracao" value="{{ ficha.get('inspiracao', '') }}"><label>Inspiração</label></div>
-                    <div class="box testes_resistencia">
-                        <h3>Testes de Resistência</h3>
-                        <div class="teste-item" data-atributo="forca"><input type="checkbox" name="res_forca_prof" class="prof-check" {% if ficha.get('res_forca_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Força</label></div>
-                        <div class="teste-item" data-atributo="destreza"><input type="checkbox" name="res_destreza_prof" class="prof-check" {% if ficha.get('res_destreza_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Destreza</label></div>
-                        <div class="teste-item" data-atributo="constituicao"><input type="checkbox" name="res_constituicao_prof" class="prof-check" {% if ficha.get('res_constituicao_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Constituição</label></div>
-                        <div class="teste-item" data-atributo="inteligencia"><input type="checkbox" name="res_inteligencia_prof" class="prof-check" {% if ficha.get('res_inteligencia_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Inteligência</label></div>
-                        <div class="teste-item" data-atributo="sabedoria"><input type="checkbox" name="res_sabedoria_prof" class="prof-check" {% if ficha.get('res_sabedoria_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Sabedoria</label></div>
-                        <div class="teste-item" data-atributo="carisma"><input type="checkbox" name="res_carisma_prof" class="prof-check" {% if ficha.get('res_carisma_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Carisma</label></div>
+                    <!-- 
+                    ==========================================================================
+                    == COLUNA 1: ATRIBUTOS ==
+                    ==========================================================================
+                    Contém Inspiração, Proficiência, os 6 atributos principais e Percepção Passiva.
+                    -->
+                    <div class="coluna-atributos">
+                        <div class="box-simples inspiracao"><input type="text" name="inspiracao" value="{{ ficha.get('inspiracao', '') }}"><label>Inspiração</label></div>
+                        <div class="box-simples proficiencia"><input type="text" id="bonus-proficiencia" name="bonus_proficiencia" value="{{ ficha.get('bonus_proficiencia', '+2') }}"><label>Bônus de Proficiência</label></div>
+                        <div class="atributos-grid">
+                            <div class="atributo-box" data-atributo="forca"> <label>Força</label> <input type="number" name="forca" class="valor-atributo" value="{{ ficha.get('forca', '10') }}"> <div class="modificador-atributo">+0</div> </div>
+                            <div class="atributo-box" data-atributo="destreza"> <label>Destreza</label> <input type="number" name="destreza" class="valor-atributo" value="{{ ficha.get('destreza', '10') }}"> <div class="modificador-atributo">+0</div> </div>
+                            <div class="atributo-box" data-atributo="constituicao"> <label>Constituição</label> <input type="number" name="constituicao" class="valor-atributo" value="{{ ficha.get('constituicao', '10') }}"> <div class="modificador-atributo">+0</div> </div>
+                            <div class="atributo-box" data-atributo="inteligencia"> <label>Inteligência</label> <input type="number" name="inteligencia" class="valor-atributo" value="{{ ficha.get('inteligencia', '10') }}"> <div class="modificador-atributo">+0</div> </div>
+                            <div class="atributo-box" data-atributo="sabedoria"> <label>Sabedoria</label> <input type="number" name="sabedoria" class="valor-atributo" value="{{ ficha.get('sabedoria', '10') }}"> <div class="modificador-atributo">+0</div> </div>
+                            <div class="atributo-box" data-atributo="carisma"> <label>Carisma</label> <input type="number" name="carisma" class="valor-atributo" value="{{ ficha.get('carisma', '10') }}"> <div class="modificador-atributo">+0</div> </div>
+                        </div>
+                        <div class="box-simples percepcao-passiva"><input type="text" name="sabedoria_passiva" value="{{ ficha.get('sabedoria_passiva', '10') }}"><label>Sabedoria Passiva (Percepção)</label></div>
                     </div>
-                    <div class="box pericias">
-                        <h3>Perícias</h3>
-                        <div class="pericia-item" data-atributo="destreza"><input type="checkbox" name="acrobacia_prof" class="prof-check" {% if ficha.get('acrobacia_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Acrobacia</label></div>
-                        <div class="pericia-item" data-atributo="inteligencia"><input type="checkbox" name="arcanismo_prof" class="prof-check" {% if ficha.get('arcanismo_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Arcanismo</label></div>
-                        <div class="pericia-item" data-atributo="forca"><input type="checkbox" name="atletismo_prof" class="prof-check" {% if ficha.get('atletismo_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Atletismo</label></div>
-                        <div class="pericia-item" data-atributo="carisma"><input type="checkbox" name="atuacao_prof" class="prof-check" {% if ficha.get('atuacao_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Atuação</label></div>
-                        <div class="pericia-item" data-atributo="carisma"><input type="checkbox" name="blefar_prof" class="prof-check" {% if ficha.get('blefar_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Blefar</label></div>
-                        <div class="pericia-item" data-atributo="destreza"><input type="checkbox" name="furtividade_prof" class="prof-check" {% if ficha.get('furtividade_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Furtividade</label></div>
-                        <div class="pericia-item" data-atributo="inteligencia"><input type="checkbox" name="historia_prof" class="prof-check" {% if ficha.get('historia_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>História</label></div>
-                        <div class="pericia-item" data-atributo="carisma"><input type="checkbox" name="intimidacao_prof" class="prof-check" {% if ficha.get('intimidacao_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Intimidação</label></div>
-                        <div class="pericia-item" data-atributo="sabedoria"><input type="checkbox" name="intuicao_prof" class="prof-check" {% if ficha.get('intuicao_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Intuição</label></div>
-                        <div class="pericia-item" data-atributo="inteligencia"><input type="checkbox" name="investigacao_prof" class="prof-check" {% if ficha.get('investigacao_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Investigação</label></div>
-                        <div class="pericia-item" data-atributo="sabedoria"><input type="checkbox" name="lidar_animais_prof" class="prof-check" {% if ficha.get('lidar_animais_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Lidar com Animais</label></div>
-                        <div class="pericia-item" data-atributo="sabedoria"><input type="checkbox" name="medicina_prof" class="prof-check" {% if ficha.get('medicina_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Medicina</label></div>
-                        <div class="pericia-item" data-atributo="inteligencia"><input type="checkbox" name="natureza_prof" class="prof-check" {% if ficha.get('natureza_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Natureza</label></div>
-                        <div class="pericia-item" data-atributo="sabedoria"><input type="checkbox" name="percepcao_prof" class="prof-check" {% if ficha.get('percepcao_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Percepção</label></div>
-                        <div class="pericia-item" data-atributo="carisma"><input type="checkbox" name="persuasao_prof" class="prof-check" {% if ficha.get('persuasao_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Persuasão</label></div>
-                        <div class="pericia-item" data-atributo="destreza"><input type="checkbox" name="prestidigitacao_prof" class="prof-check" {% if ficha.get('prestidigitacao_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Prestidigitação</label></div>
-                        <div class="pericia-item" data-atributo="inteligencia"><input type="checkbox" name="religiao_prof" class="prof-check" {% if ficha.get('religiao_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Religião</label></div>
-                        <div class="pericia-item" data-atributo="sabedoria"><input type="checkbox" name="sobrevivencia_prof" class="prof-check" {% if ficha.get('sobrevivencia_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Sobrevivência</label></div>
+
+                    <!-- 
+                    ==========================================================================
+                    == COLUNA 2: PERÍCIAS E RESISTÊNCIAS ==
+                    ==========================================================================
+                    Contém os Testes de Resistência e a lista completa de Perícias.
+                    -->
+                    <div class="coluna-pericias">
+                        <div class="box testes_resistencia">
+                            <h3>Testes de Resistência</h3>
+                            <div class="teste-item" data-atributo="forca"><input type="checkbox" name="res_forca_prof" class="prof-check" {% if ficha.get('res_forca_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Força</label><input type="checkbox" name="res_forca_exp" class="exp-check" {% if ficha.get('res_forca_exp') %}checked{% endif %}></div>
+                            <div class="teste-item" data-atributo="destreza"><input type="checkbox" name="res_destreza_prof" class="prof-check" {% if ficha.get('res_destreza_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Destreza</label><input type="checkbox" name="res_destreza_exp" class="exp-check" {% if ficha.get('res_destreza_exp') %}checked{% endif %}></div>
+                            <div class="teste-item" data-atributo="constituicao"><input type="checkbox" name="res_constituicao_prof" class="prof-check" {% if ficha.get('res_constituicao_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Constituição</label><input type="checkbox" name="res_constituicao_exp" class="exp-check" {% if ficha.get('res_constituicao_exp') %}checked{% endif %}></div>
+                            <div class="teste-item" data-atributo="inteligencia"><input type="checkbox" name="res_inteligencia_prof" class="prof-check" {% if ficha.get('res_inteligencia_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Inteligência</label><input type="checkbox" name="res_inteligencia_exp" class="exp-check" {% if ficha.get('res_inteligencia_exp') %}checked{% endif %}></div>
+                            <div class="teste-item" data-atributo="sabedoria"><input type="checkbox" name="res_sabedoria_prof" class="prof-check" {% if ficha.get('res_sabedoria_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Sabedoria</label><input type="checkbox" name="res_sabedoria_exp" class="exp-check" {% if ficha.get('res_sabedoria_exp') %}checked{% endif %}></div>
+                            <div class="teste-item" data-atributo="carisma"><input type="checkbox" name="res_carisma_prof" class="prof-check" {% if ficha.get('res_carisma_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Carisma</label><input type="checkbox" name="res_carisma_exp" class="exp-check" {% if ficha.get('res_carisma_exp') %}checked{% endif %}></div>
+                        </div>
+                        <div class="box pericias">
+                            <h3>Perícias</h3>
+                            <div class="pericia-item" data-atributo="destreza"><input type="checkbox" name="acrobacia_prof" class="prof-check" {% if ficha.get('acrobacia_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Acrobacia</label><input type="checkbox" name="acrobacia_exp" class="exp-check" {% if ficha.get('acrobacia_exp') %}checked{% endif %}></div>
+                            <div class="pericia-item" data-atributo="inteligencia"><input type="checkbox" name="arcanismo_prof" class="prof-check" {% if ficha.get('arcanismo_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Arcanismo</label><input type="checkbox" name="arcanismo_exp" class="exp-check" {% if ficha.get('arcanismo_exp') %}checked{% endif %}></div>
+                            <div class="pericia-item" data-atributo="forca"><input type="checkbox" name="atletismo_prof" class="prof-check" {% if ficha.get('atletismo_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Atletismo</label><input type="checkbox" name="atletismo_exp" class="exp-check" {% if ficha.get('atletismo_exp') %}checked{% endif %}></div>
+                            <div class="pericia-item" data-atributo="carisma"><input type="checkbox" name="atuacao_prof" class="prof-check" {% if ficha.get('atuacao_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Atuação</label><input type="checkbox" name="atuacao_exp" class="exp-check" {% if ficha.get('atuacao_exp') %}checked{% endif %}></div>
+                            <div class="pericia-item" data-atributo="carisma"><input type="checkbox" name="blefar_prof" class="prof-check" {% if ficha.get('blefar_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Blefar</label><input type="checkbox" name="blefar_exp" class="exp-check" {% if ficha.get('blefar_exp') %}checked{% endif %}></div>
+                            <div class="pericia-item" data-atributo="destreza"><input type="checkbox" name="furtividade_prof" class="prof-check" {% if ficha.get('furtividade_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Furtividade</label><input type="checkbox" name="furtividade_exp" class="exp-check" {% if ficha.get('furtividade_exp') %}checked{% endif %}></div>
+                            <div class="pericia-item" data-atributo="inteligencia"><input type="checkbox" name="historia_prof" class="prof-check" {% if ficha.get('historia_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>História</label><input type="checkbox" name="historia_exp" class="exp-check" {% if ficha.get('historia_exp') %}checked{% endif %}></div>
+                            <div class="pericia-item" data-atributo="carisma"><input type="checkbox" name="intimidacao_prof" class="prof-check" {% if ficha.get('intimidacao_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Intimidação</label><input type="checkbox" name="intimidacao_exp" class="exp-check" {% if ficha.get('intimidacao_exp') %}checked{% endif %}></div>
+                            <div class="pericia-item" data-atributo="sabedoria"><input type="checkbox" name="intuicao_prof" class="prof-check" {% if ficha.get('intuicao_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Intuição</label><input type="checkbox" name="intuicao_exp" class="exp-check" {% if ficha.get('intuicao_exp') %}checked{% endif %}></div>
+                            <div class="pericia-item" data-atributo="inteligencia"><input type="checkbox" name="investigacao_prof" class="prof-check" {% if ficha.get('investigacao_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Investigação</label><input type="checkbox" name="investigacao_exp" class="exp-check" {% if ficha.get('investigacao_exp') %}checked{% endif %}></div>
+                            <div class="pericia-item" data-atributo="sabedoria"><input type="checkbox" name="lidar_animais_prof" class="prof-check" {% if ficha.get('lidar_animais_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Lidar com Animais</label><input type="checkbox" name="lidar_animais_exp" class="exp-check" {% if ficha.get('lidar_animais_exp') %}checked{% endif %}></div>
+                            <div class="pericia-item" data-atributo="sabedoria"><input type="checkbox" name="medicina_prof" class="prof-check" {% if ficha.get('medicina_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Medicina</label><input type="checkbox" name="medicina_exp" class="exp-check" {% if ficha.get('medicina_exp') %}checked{% endif %}></div>
+                            <div class="pericia-item" data-atributo="inteligencia"><input type="checkbox" name="natureza_prof" class="prof-check" {% if ficha.get('natureza_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Natureza</label><input type="checkbox" name="natureza_exp" class="exp-check" {% if ficha.get('natureza_exp') %}checked{% endif %}></div>
+                            <div class="pericia-item" data-atributo="sabedoria"><input type="checkbox" name="percepcao_prof" class="prof-check" {% if ficha.get('percepcao_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Percepção</label><input type="checkbox" name="percepcao_exp" class="exp-check" {% if ficha.get('percepcao_exp') %}checked{% endif %}></div>
+                            <div class="pericia-item" data-atributo="carisma"><input type="checkbox" name="persuasao_prof" class="prof-check" {% if ficha.get('persuasao_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Persuasão</label><input type="checkbox" name="persuasao_exp" class="exp-check" {% if ficha.get('persuasao_exp') %}checked{% endif %}></div>
+                            <div class="pericia-item" data-atributo="destreza"><input type="checkbox" name="prestidigitacao_prof" class="prof-check" {% if ficha.get('prestidigitacao_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Prestidigitação</label><input type="checkbox" name="prestidigitacao_exp" class="exp-check" {% if ficha.get('prestidigitacao_exp') %}checked{% endif %}></div>
+                            <div class="pericia-item" data-atributo="inteligencia"><input type="checkbox" name="religiao_prof" class="prof-check" {% if ficha.get('religiao_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Religião</label><input type="checkbox" name="religiao_exp" class="exp-check" {% if ficha.get('religiao_exp') %}checked{% endif %}></div>
+                            <div class="pericia-item" data-atributo="sabedoria"><input type="checkbox" name="sobrevivencia_prof" class="prof-check" {% if ficha.get('sobrevivencia_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Sobrevivência</label><input type="checkbox" name="sobrevivencia_exp" class="exp-check" {% if ficha.get('sobrevivencia_exp') %}checked{% endif %}></div>
+                        </div>
                     </div>
                 </div>
 
@@ -115,10 +123,7 @@
                         <div class="box combate-item"><input type="text" name="deslocamento" value="{{ ficha.get('deslocamento', '9m') }}"><label>Desloc.</label></div>
                     </div>
                     <div class="box pontos-vida">
-                        <div class="pv-header">
-                            <label>PV Totais</label>
-                            <input type="number" id="pontos-vida-maximos" name="pontos_vida_maximos" value="{{ ficha.get('pontos_vida_maximos', '10') }}" class="pv-max">
-                        </div>
+                        <div class="pv-header"><label>PV Totais</label><input type="number" id="pontos-vida-maximos" name="pontos_vida_maximos" value="{{ ficha.get('pontos_vida_maximos', '10') }}" class="pv-max"></div>
                         <textarea id="pontos-vida-atuais" name="pontos_vida_atuais">{{ ficha.get('pontos_vida_atuais', '') }}</textarea>
                         <label class="pv-label">Pontos de Vida Atuais</label>
                         <div class="hp-controls">
@@ -133,7 +138,9 @@
                     </div>
                     <div class="dados-vida-morte-grid">
                         <div class="box dados-vida">
-                            <div class="dados-vida-header"><label>Dados de Vida</label><input type="text" name="dados_vida_total" value="{{ ficha.get('dados_vida_total', '') }}"></div>
+                            <div class="dados-vida-header"><label>Total</label><input type="text" name="dados_vida_total" value="{{ ficha.get('dados_vida_total', '') }}"></div>
+                            <textarea name="dados_vida"></textarea>
+                            <label class="dados-vida-label">Dados de Vida</label>
                         </div>
                         <div class="box testes-morte">
                             <div class="sucessos"><label>Sucessos</label><input type="checkbox" name="sucesso1"><input type="checkbox" name="sucesso2"><input type="checkbox" name="sucesso3"></div>
@@ -165,7 +172,7 @@
                 ==========================================================================
                 == LINHA INFERIOR: EQUIPAMENTO ==
                 ==========================================================================
-                Contém as moedas e a lista de equipamentos.
+                Contém as moedas, a lista de equipamentos e o cálculo de peso.
                 -->
                 <div class="box equipamento">
                     <div class="equipamento-wrapper">
@@ -175,26 +182,17 @@
                             <div class="moeda-item"><label>PE</label><input type="number" name="moeda_pe" value="{{ ficha.get('moeda_pe', '0') }}"></div>
                             <div class="moeda-item"><label>PO</label><input type="number" name="moeda_po" value="{{ ficha.get('moeda_po', '0') }}"></div>
                             <div class="moeda-item"><label>PL</label><input type="number" name="moeda_pl" value="{{ ficha.get('moeda_pl', '0') }}"></div>
-                         </div>
-        <div class="equipamento-lista">
-            <h3>Equipamento</h3>
-            <!-- Adicionamos um ID para o JavaScript encontrar esta área -->
-            <textarea id="equipamento-textarea" name="equipamento">{{ ficha.get('equipamento', '') }}</textarea>
-        </div>
-        <!-- NOVO MOSTRADOR DE PESO -->
-        <div class="peso-info">
-            <h4>Capacidade de Carga</h4>
-            <div id="peso-display">
-                <span>Carga Atual: 0 kg</span>
-                <span>Carga Máxima: 0 kg</span>
-            </div>
-            <div id="sobrecarga-display">
-                <span>Sobrecarga: 0 kg</span>
-                <span>Pesada: 0 kg</span>
-            </div>
-        </div>
-    </div>
-</div>
+                        </div>
+                        <div class="equipamento-lista">
+                            <h3>Equipamento</h3>
+                            <textarea id="equipamento-textarea" name="equipamento">{{ ficha.get('equipamento', '') }}</textarea>
+                        </div>
+                        <div class="peso-info">
+                            <h4>Capacidade de Carga</h4>
+                            <div id="peso-display"><span>Carga Atual: 0 kg</span><span>Carga Máxima: 0 kg</span></div>
+                            <div id="sobrecarga-display"><span>Sobrecarga: >0 kg</span><span>Pesada: >0 kg</span></div>
+                        </div>
+                    </div>
                 </div>
             </main>
 
@@ -220,41 +218,77 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             
-            // --- PARTE 1: LÓGICA DE ATRIBUTOS E PERÍCIAS ---
-            // Função que calcula o modificador: (Valor - 10) / 2
+            // --- PARTE 1: LÓGICA DE ATRIBUTOS, PERÍCIAS E PESO ---
             function calcularModificador(valor) {
                 const mod = Math.floor((parseInt(valor) - 10) / 2);
                 return mod >= 0 ? '+' + mod : String(mod);
             }
 
-            // Função auxiliar para converter texto com '+' para número
             function parseBonus(bonusString) {
                 return parseInt(String(bonusString).replace('+', '')) || 0;
             }
 
-            // Atualiza o modificador de um atributo e chama a atualização de perícias
             function atualizarModificador(atributoBox) {
                 const inputValor = atributoBox.querySelector('.valor-atributo');
                 const divModificador = atributoBox.querySelector('.modificador-atributo');
                 const valor = inputValor.value || 10;
                 divModificador.textContent = calcularModificador(valor);
                 atualizarTodasAsPericias();
+                if (atributoBox.dataset.atributo === 'forca') {
+                    atualizarCargaTotal();
+                }
             }
 
-            // Atualiza TODAS as perícias e testes de resistência
             function atualizarTodasAsPericias() {
                 const bonusProficiencia = parseBonus(document.getElementById('bonus-proficiencia').value);
                 const todosOsTestes = document.querySelectorAll('.pericia-item, .teste-item');
-
                 todosOsTestes.forEach(item => {
                     const nomeAtributo = item.dataset.atributo;
                     const modAtributoEl = document.querySelector(`.atributo-box[data-atributo="${nomeAtributo}"] .modificador-atributo`);
                     const modAtributo = parseBonus(modAtributoEl.textContent);
                     const profCheck = item.querySelector('.prof-check');
-                    const bonusFinal = modAtributo + (profCheck.checked ? bonusProficiencia : 0);
+                    const expCheck = item.querySelector('.exp-check');
+                    let bonusProfTotal = 0;
+                    if (expCheck && expCheck.checked) {
+                        bonusProfTotal = bonusProficiencia * 2;
+                    } else if (profCheck.checked) {
+                        bonusProfTotal = bonusProficiencia;
+                    }
+                    const bonusFinal = modAtributo + bonusProfTotal;
                     const valorPericiaEl = item.querySelector('.valor-pericia');
                     valorPericiaEl.textContent = bonusFinal >= 0 ? '+' + bonusFinal : String(bonusFinal);
                 });
+            }
+
+            function atualizarCargaTotal() {
+                const forcaInput = document.querySelector('.atributo-box[data-atributo="forca"] .valor-atributo');
+                const tamanhoSelect = document.getElementById('tamanho-select');
+                const equipamentoTextarea = document.getElementById('equipamento-textarea');
+                const pesoDisplay = document.getElementById('peso-display');
+                const sobrecargaDisplay = document.getElementById('sobrecarga-display');
+                let multiplicadorTamanho = 1;
+                if (tamanhoSelect.value === 'minusculo') multiplicadorTamanho = 0.5;
+                if (tamanhoSelect.value === 'grande') multiplicadorTamanho = 2;
+                const valorForca = parseInt(forcaInput.value) || 0;
+                const capacidadeMax = valorForca * 7.5 * multiplicadorTamanho;
+                const sobrecargaLeve = valorForca * 2.5 * multiplicadorTamanho;
+                const sobrecargaPesada = valorForca * 5 * multiplicadorTamanho;
+                let pesoMoedas = 0;
+                document.querySelectorAll('.moeda-item input').forEach(input => { pesoMoedas += parseInt(input.value) || 0; });
+                pesoMoedas = pesoMoedas / 100;
+                let pesoItens = 0;
+                const regex = /\((\d+\.?\d*)\s*kg\)/gi;
+                let match;
+                while ((match = regex.exec(equipamentoTextarea.value)) !== null) { pesoItens += parseFloat(match[1]); }
+                const cargaTotal = (pesoMoedas + pesoItens);
+                pesoDisplay.innerHTML = `<span>Carga Atual: ${cargaTotal.toFixed(2)} kg</span><span>Carga Máxima: ${capacidadeMax.toFixed(2)} kg</span>`;
+                sobrecargaDisplay.innerHTML = `<span>Sobrecarga: >${sobrecargaLeve.toFixed(2)} kg</span><span>Pesada: >${sobrecargaPesada.toFixed(2)} kg</span>`;
+                pesoDisplay.classList.remove('sobrecarga-leve', 'sobrecarga-pesada');
+                if (cargaTotal > sobrecargaPesada) {
+                    pesoDisplay.classList.add('sobrecarga-pesada');
+                } else if (cargaTotal > sobrecargaLeve) {
+                    pesoDisplay.classList.add('sobrecarga-leve');
+                }
             }
 
             // --- PARTE 2: LÓGICA DE CONTROLE DE PONTOS DE VIDA ---
@@ -269,107 +303,35 @@
                     let valorCura = parseInt(valorModEl.value) || 0;
                     let pvAtuais = parseInt(pvAtuaisEl.value) || 0;
                     let pvMaximos = parseInt(pvMaximosEl.value) || 0;
-                    let novoPv = Math.min(pvAtuais + valorCura, pvMaximos);
-                    pvAtuaisEl.value = novoPv;
+                    pvAtuaisEl.value = Math.min(pvAtuais + valorCura, pvMaximos);
                     valorModEl.value = '';
                 });
             }
-
             if (btnDano) {
                 btnDano.addEventListener('click', function() {
                     let valorDano = parseInt(valorModEl.value) || 0;
                     let pvAtuais = parseInt(pvAtuaisEl.value) || 0;
-                    let novoPv = Math.max(pvAtuais - valorDano, 0);
-                    pvAtuaisEl.value = novoPv;
+                    pvAtuaisEl.value = Math.max(pvAtuais - valorDano, 0);
                     valorModEl.value = '';
                 });
             }
 
             // --- PARTE 3: INICIALIZAÇÃO (EVENT LISTENERS) ---
-            // Adiciona os "ouvintes" que disparam as funções de atualização
-            const todosAtributos = document.querySelectorAll('.atributo-box');
-            todosAtributos.forEach(box => {
-                atualizarModificador(box); // Carga inicial
+            document.querySelectorAll('.atributo-box').forEach(box => {
+                atualizarModificador(box);
                 box.querySelector('.valor-atributo').addEventListener('input', () => atualizarModificador(box));
             });
-
-            const todosProfChecks = document.querySelectorAll('.prof-check');
-            todosProfChecks.forEach(check => {
+            document.querySelectorAll('.prof-check, .exp-check').forEach(check => {
                 check.addEventListener('change', atualizarTodasAsPericias);
             });
-
             document.getElementById('bonus-proficiencia').addEventListener('input', atualizarTodasAsPericias);
+            document.getElementById('tamanho-select').addEventListener('change', atualizarCargaTotal);
+            document.getElementById('equipamento-textarea').addEventListener('input', atualizarCargaTotal);
+            document.querySelectorAll('.moeda-item input').forEach(input => {
+                input.addEventListener('input', atualizarCargaTotal);
+            });
+            atualizarCargaTotal(); // Carga inicial do peso
         });
     </script>
 </body>
 </html>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // --- LÓGICA DE ATRIBUTOS E PERÍCIAS (EXISTENTE) ---
-    // ... (as funções calcularModificador, parseBonus, atualizarModificador, etc. continuam aqui) ...
-    
-    // --- NOVA LÓGICA DE CÁLCULO DE PESO ---
-    function atualizarCargaTotal() {
-        // 1. Pega os elementos necessários da página
-        const forcaInput = document.querySelector('.atributo-box[data-atributo="forca"] .valor-atributo');
-        const tamanhoSelect = document.getElementById('tamanho-select');
-        const equipamentoTextarea = document.getElementById('equipamento-textarea');
-        const pesoDisplay = document.getElementById('peso-display');
-        const sobrecargaDisplay = document.getElementById('sobrecarga-display');
-
-        // 2. Calcula o multiplicador de tamanho
-        let multiplicadorTamanho = 1;
-        if (tamanhoSelect.value === 'minusculo') multiplicadorTamanho = 0.5;
-        if (tamanhoSelect.value === 'grande') multiplicadorTamanho = 2;
-
-        // 3. Calcula a capacidade de carga com base na Força e Tamanho
-        const valorForca = parseInt(forcaInput.value) || 0;
-        const capacidadeMax = valorForca * 7.5 * multiplicadorTamanho;
-        const sobrecargaLeve = valorForca * 2.5 * multiplicadorTamanho;
-        const sobrecargaPesada = valorForca * 5 * multiplicadorTamanho;
-
-        // 4. Calcula o peso das moedas (50 moedas ≈ 0.5 kg)
-        let pesoMoedas = 0;
-        document.querySelectorAll('.moeda-item input').forEach(input => {
-            pesoMoedas += parseInt(input.value) || 0;
-        });
-        pesoMoedas = pesoMoedas / 100;
-
-        // 5. Calcula o peso dos itens no equipamento
-        // Procura por números seguidos de "kg" no texto, ex: "Espada Longa (1.5kg)"
-        let pesoItens = 0;
-        const regex = /\((\d+\.?\d*)\s*kg\)/gi;
-        let match;
-        while ((match = regex.exec(equipamentoTextarea.value)) !== null) {
-            pesoItens += parseFloat(match[1]);
-        }
-
-        // 6. Calcula a carga total e atualiza o display
-        const cargaTotal = (pesoMoedas + pesoItens).toFixed(2);
-        
-        pesoDisplay.innerHTML = `<span>Carga Atual: ${cargaTotal} kg</span><span>Carga Máxima: ${capacidadeMax.toFixed(2)} kg</span>`;
-        sobrecargaDisplay.innerHTML = `<span>Sobrecarga: >${sobrecargaLeve.toFixed(2)} kg</span><span>Pesada: >${sobrecargaPesada.toFixed(2)} kg</span>`;
-
-        // 7. Muda a cor do display com base na sobrecarga
-        pesoDisplay.classList.remove('sobrecarga-leve', 'sobrecarga-pesada');
-        if (cargaTotal > sobrecargaPesada) {
-            pesoDisplay.classList.add('sobrecarga-pesada');
-        } else if (cargaTotal > sobrecargaLeve) {
-            pesoDisplay.classList.add('sobrecarga-leve');
-        }
-    }
-    // --- INICIALIZAÇÃO E EVENT LISTENERS ---
-    // ... (listeners existentes para atributos e perícias) ...
-
-    // Adiciona "ouvintes" para os campos que afetam o peso
-    document.querySelector('.atributo-box[data-atributo="forca"] .valor-atributo').addEventListener('input', atualizarCargaTotal);
-    document.getElementById('tamanho-select').addEventListener('change', atualizarCargaTotal);
-    document.getElementById('equipamento-textarea').addEventListener('input', atualizarCargaTotal);
-    document.querySelectorAll('.moeda-item input').forEach(input => {
-        input.addEventListener('input', atualizarCargaTotal);
-    });
-
-    // Chama a função uma vez no início para calcular os valores iniciais
-    atualizarCargaTotal();
-});
-</script>
