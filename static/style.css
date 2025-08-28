@@ -131,9 +131,10 @@ Esta é a estrutura que organiza as 4 colunas e a linha inferior.
 ==========================================================================
 */
 .atributos-grid {
-    display: flex;
+  display: grid;
+    grid-template-columns: 1fr 1fr;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
 }
 
 .atributo-box {
@@ -306,7 +307,7 @@ Esta é a estrutura que organiza as 4 colunas e a linha inferior.
 }
 
 .coluna-personalidade .box.caracteristicas-talentos {
-    flex-grow: 1; /* Faz esta caixa ocupar mais espaço vertical */
+    flex-grow: 300px; /* Faz esta caixa ocupar mais espaço vertical */
 }
 
 /* ==========================================================================
@@ -376,4 +377,47 @@ button, .back-button {
 
 button:hover, .back-button:hover {
     background-color: #d3c4a5;
+}
+/* ==========================================================================
+== ESTILOS PARA CAPACIDADE DE CARGA E PESO ==
+==========================================================================
+*/
+.equipamento-wrapper {
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* Moedas | Lista | Peso Info */
+    gap: 20px;
+}
+
+.peso-info {
+    border-left: 2px solid #c8bca7;
+    padding-left: 20px;
+    width: 200px; /* Largura fixa para a coluna de peso */
+    flex-shrink: 0;
+}
+
+.peso-info h4 {
+    margin: 0 0 10px 0;
+    text-align: center;
+    font-family: 'MedievalSharp', cursive;
+}
+
+#peso-display, #sobrecarga-display {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+#peso-display {
+    font-weight: bold;
+}
+
+/* Cores para indicar sobrecarga */
+#peso-display.sobrecarga-leve {
+    color: #856404; /* Amarelo/Laranja de alerta */
+}
+
+#peso-display.sobrecarga-pesada {
+    color: #721c24; /* Vermelho de perigo */
 }

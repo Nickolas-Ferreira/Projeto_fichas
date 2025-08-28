@@ -25,6 +25,13 @@
                     <input type="text" name="raca" placeholder="Raça" value="{{ ficha.get('raca', '') }}">
                     <input type="text" name="tendencia" placeholder="Tendência" value="{{ ficha.get('tendencia', '') }}">
                     <input type="text" name="pontos_experiencia" placeholder="Pontos de Experiência" value="{{ ficha.get('pontos_experiencia', '') }}">
+                  <!-- NOVO SELETOR DE TAMANHO -->
+    <select name="tamanho" id="tamanho-select">
+        <option value="minusculo" {% if ficha.get('tamanho') == 'minusculo' %}selected{% endif %}>Minúsculo</option>
+        <option value="medio" {% if not ficha.get('tamanho') or ficha.get('tamanho') == 'medio' %}selected{% endif %}>Médio</option>
+        <option value="grande" {% if ficha.get('tamanho') == 'grande' %}selected{% endif %}>Grande</option>
+    </select>
+</div>
                 </div>
             </header>
 
@@ -43,8 +50,7 @@
                 Contém Inspiração, Proficiência, os 6 atributos principais e Percepção Passiva.
                 -->
                 <div class="coluna-atributos">
-                    <div class="box-simples inspiracao"><input type="text" name="inspiracao" value="{{ ficha.get('inspiracao', '') }}"><label>Inspiração</label></div>
-                    <div class="box-simples proficiencia"><input type="text" id="bonus-proficiencia" name="bonus_proficiencia" value="{{ ficha.get('bonus_proficiencia', '+2') }}"><label>Bônus de Proficiência</label></div>
+                     <div class="box-simples proficiencia"><input type="text" id="bonus-proficiencia" name="bonus_proficiencia" value="{{ ficha.get('bonus_proficiencia', '+2') }}"><label>Bônus de Proficiência</label></div>
                     <div class="atributos-grid">
                         <div class="atributo-box" data-atributo="forca"> <label>Força</label> <input type="number" name="forca" class="valor-atributo" value="{{ ficha.get('forca', '10') }}"> <div class="modificador-atributo">+0</div> </div>
                         <div class="atributo-box" data-atributo="destreza"> <label>Destreza</label> <input type="number" name="destreza" class="valor-atributo" value="{{ ficha.get('destreza', '10') }}"> <div class="modificador-atributo">+0</div> </div>
@@ -63,6 +69,7 @@
                 Contém os Testes de Resistência e a lista completa de Perícias.
                 -->
                 <div class="coluna-pericias">
+                    <div class="box-simples inspiracao"><input type="text" name="inspiracao" value="{{ ficha.get('inspiracao', '') }}"><label>Inspiração</label></div>
                     <div class="box testes_resistencia">
                         <h3>Testes de Resistência</h3>
                         <div class="teste-item" data-atributo="forca"><input type="checkbox" name="res_forca_prof" class="prof-check" {% if ficha.get('res_forca_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Força</label></div>
@@ -126,9 +133,7 @@
                     </div>
                     <div class="dados-vida-morte-grid">
                         <div class="box dados-vida">
-                            <div class="dados-vida-header"><label>Total</label><input type="text" name="dados_vida_total" value="{{ ficha.get('dados_vida_total', '') }}"></div>
-                            <textarea name="dados_vida"></textarea>
-                            <label class="dados-vida-label">Dados de Vida</label>
+                            <div class="dados-vida-header"><label>Dados de Vida</label><input type="text" name="dados_vida_total" value="{{ ficha.get('dados_vida_total', '') }}"></div>
                         </div>
                         <div class="box testes-morte">
                             <div class="sucessos"><label>Sucessos</label><input type="checkbox" name="sucesso1"><input type="checkbox" name="sucesso2"><input type="checkbox" name="sucesso3"></div>
@@ -170,12 +175,26 @@
                             <div class="moeda-item"><label>PE</label><input type="number" name="moeda_pe" value="{{ ficha.get('moeda_pe', '0') }}"></div>
                             <div class="moeda-item"><label>PO</label><input type="number" name="moeda_po" value="{{ ficha.get('moeda_po', '0') }}"></div>
                             <div class="moeda-item"><label>PL</label><input type="number" name="moeda_pl" value="{{ ficha.get('moeda_pl', '0') }}"></div>
-                        </div>
-                        <div class="equipamento-lista">
-                            <h3>Equipamento</h3>
-                            <textarea name="equipamento">{{ ficha.get('equipamento', '') }}</textarea>
-                        </div>
-                    </div>
+                         </div>
+        <div class="equipamento-lista">
+            <h3>Equipamento</h3>
+            <!-- Adicionamos um ID para o JavaScript encontrar esta área -->
+            <textarea id="equipamento-textarea" name="equipamento">{{ ficha.get('equipamento', '') }}</textarea>
+        </div>
+        <!-- NOVO MOSTRADOR DE PESO -->
+        <div class="peso-info">
+            <h4>Capacidade de Carga</h4>
+            <div id="peso-display">
+                <span>Carga Atual: 0 kg</span>
+                <span>Carga Máxima: 0 kg</span>
+            </div>
+            <div id="sobrecarga-display">
+                <span>Sobrecarga: 0 kg</span>
+                <span>Pesada: 0 kg</span>
+            </div>
+        </div>
+    </div>
+</div>
                 </div>
             </main>
 
@@ -284,3 +303,73 @@
     </script>
 </body>
 </html>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // --- LÓGICA DE ATRIBUTOS E PERÍCIAS (EXISTENTE) ---
+    // ... (as funções calcularModificador, parseBonus, atualizarModificador, etc. continuam aqui) ...
+    
+    // --- NOVA LÓGICA DE CÁLCULO DE PESO ---
+    function atualizarCargaTotal() {
+        // 1. Pega os elementos necessários da página
+        const forcaInput = document.querySelector('.atributo-box[data-atributo="forca"] .valor-atributo');
+        const tamanhoSelect = document.getElementById('tamanho-select');
+        const equipamentoTextarea = document.getElementById('equipamento-textarea');
+        const pesoDisplay = document.getElementById('peso-display');
+        const sobrecargaDisplay = document.getElementById('sobrecarga-display');
+
+        // 2. Calcula o multiplicador de tamanho
+        let multiplicadorTamanho = 1;
+        if (tamanhoSelect.value === 'minusculo') multiplicadorTamanho = 0.5;
+        if (tamanhoSelect.value === 'grande') multiplicadorTamanho = 2;
+
+        // 3. Calcula a capacidade de carga com base na Força e Tamanho
+        const valorForca = parseInt(forcaInput.value) || 0;
+        const capacidadeMax = valorForca * 7.5 * multiplicadorTamanho;
+        const sobrecargaLeve = valorForca * 2.5 * multiplicadorTamanho;
+        const sobrecargaPesada = valorForca * 5 * multiplicadorTamanho;
+
+        // 4. Calcula o peso das moedas (50 moedas ≈ 0.5 kg)
+        let pesoMoedas = 0;
+        document.querySelectorAll('.moeda-item input').forEach(input => {
+            pesoMoedas += parseInt(input.value) || 0;
+        });
+        pesoMoedas = pesoMoedas / 100;
+
+        // 5. Calcula o peso dos itens no equipamento
+        // Procura por números seguidos de "kg" no texto, ex: "Espada Longa (1.5kg)"
+        let pesoItens = 0;
+        const regex = /\((\d+\.?\d*)\s*kg\)/gi;
+        let match;
+        while ((match = regex.exec(equipamentoTextarea.value)) !== null) {
+            pesoItens += parseFloat(match[1]);
+        }
+
+        // 6. Calcula a carga total e atualiza o display
+        const cargaTotal = (pesoMoedas + pesoItens).toFixed(2);
+        
+        pesoDisplay.innerHTML = `<span>Carga Atual: ${cargaTotal} kg</span><span>Carga Máxima: ${capacidadeMax.toFixed(2)} kg</span>`;
+        sobrecargaDisplay.innerHTML = `<span>Sobrecarga: >${sobrecargaLeve.toFixed(2)} kg</span><span>Pesada: >${sobrecargaPesada.toFixed(2)} kg</span>`;
+
+        // 7. Muda a cor do display com base na sobrecarga
+        pesoDisplay.classList.remove('sobrecarga-leve', 'sobrecarga-pesada');
+        if (cargaTotal > sobrecargaPesada) {
+            pesoDisplay.classList.add('sobrecarga-pesada');
+        } else if (cargaTotal > sobrecargaLeve) {
+            pesoDisplay.classList.add('sobrecarga-leve');
+        }
+    }
+    // --- INICIALIZAÇÃO E EVENT LISTENERS ---
+    // ... (listeners existentes para atributos e perícias) ...
+
+    // Adiciona "ouvintes" para os campos que afetam o peso
+    document.querySelector('.atributo-box[data-atributo="forca"] .valor-atributo').addEventListener('input', atualizarCargaTotal);
+    document.getElementById('tamanho-select').addEventListener('change', atualizarCargaTotal);
+    document.getElementById('equipamento-textarea').addEventListener('input', atualizarCargaTotal);
+    document.querySelectorAll('.moeda-item input').forEach(input => {
+        input.addEventListener('input', atualizarCargaTotal);
+    });
+
+    // Chama a função uma vez no início para calcular os valores iniciais
+    atualizarCargaTotal();
+});
+</script>
