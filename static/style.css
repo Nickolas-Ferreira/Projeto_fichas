@@ -1,7 +1,6 @@
-/* ==========================================================================
+/* ===========================================================================
 == CONFIGURAÇÕES GERAIS E FONTES ==
-==========================================================================
-*/
+========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 
 body {
@@ -25,123 +24,45 @@ body {
     padding: 40px 60px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.7);
     border: 2px solid #c8bca7;
-    overflow-y: auto; /* Barra de rolagem interna */
+    overflow-y: auto;
 }
 
-/* Estilo para a barra de rolagem */
 .container::-webkit-scrollbar { width: 12px; }
 .container::-webkit-scrollbar-track { background: rgba(245, 238, 218, 0.5); }
 .container::-webkit-scrollbar-thumb { background-color: #5c4033; border-radius: 20px; border: 3px solid rgba(245, 238, 218, 0.5); }
 
-/* ==========================================================================
-== O PERGAMINHO FIXO E CENTRALIZADO ==
-==========================================================================
-*/
+/* ===========================================================================
+== PERGAMINHO FIXO E CENTRALIZADO ==
+========================================================================== */
 .pergaminho-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2vh 2vw; /* Pequena margem nas bordas da tela */
-    min-height: 100vh; /* Ocupa no mínimo a altura toda da tela */
+    padding: 2vh 2vw;
+    min-height: 100vh;
 }
 
 .pergaminho-content {
     width: 100%;
-    max-width: 1400px; /* Largura máxima do pergaminho */
-    height: 94vh; /* Altura fixa, ocupando 94% da tela */
-    
+    max-width: 1400px;
+    height: 94vh;
     background-image: url('https://static.vecteezy.com/system/resources/previews/012/981/788/non_2x/old-parchment-paper-sheet-vintage-aged-or-texture-background-png.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    
     padding: 40px 60px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.7);
     border: 2px solid #c8bca7;
-    
-    /* A MÁGICA DA BARRA DE ROLAGEM INTERNA */
-    overflow-y: auto; 
+    overflow-y: auto;
 }
 
-/* Estilo para a barra de rolagem */
 .pergaminho-content::-webkit-scrollbar { width: 12px; }
 .pergaminho-content::-webkit-scrollbar-track { background: rgba(245, 238, 218, 0.5); }
 .pergaminho-content::-webkit-scrollbar-thumb { background-color: #5c4033; border-radius: 20px; border: 3px solid rgba(245, 238, 218, 0.5); }
 
-/* ==========================================================================
-== ESTILOS GERAIS PARA ELEMENTOS DA FICHA ==
-==========================================================================
-*/
-
-/* ==========================================================================
-== ESTILOS GERAIS PARA ELEMENTOS DA FICHA ==
-==========================================================================
-*/
-.box { border: 2px solid rgba(92, 64, 51, 0.3); border-radius: 8px; padding: 10px; background-color: rgba(245, 238, 218, 0.7); }
-.box-simples { border: 2px solid rgba(92, 64, 51, 0.3); border-radius: 8px; padding: 5px; text-align: center; background-color: rgba(245, 238, 218, 0.7); }
-/* ... (outros estilos gerais) ... */
-h3 { font-family: 'MedievalSharp', cursive; text-align: center; border-bottom: 1px solid rgba(92, 64, 51, 0.4); padding-bottom: 5px; margin-top: 0; margin-bottom: 10px; font-size: 1.2em; color: #5c4033; }
-label { font-weight: bold; font-size: 0.7em; text-transform: uppercase; color: #5c4033; }
-input[type="text"], input[type="number"], textarea { width: 100%; padding: 5px; border: none; border-bottom: 1px solid rgba(92, 64, 51, 0.3); background-color: transparent; font-size: 1em; font-family: Georgia, serif; color: #3a2d1f; box-sizing: border-box; }
-textarea { min-height: 80px; resize: vertical; }
-
-h3 {
-    font-family: 'MedievalSharp', cursive;
-    text-align: center;
-    border-bottom: 1px solid rgba(92, 64, 51, 0.4);
-    padding-bottom: 5px;
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 1.2em;
-    color: #5c4033;
-}
-
-label {
-    font-weight: bold;
-    font-size: 0.7em;
-    text-transform: uppercase;
-    color: #5c4033;
-}
-
-input[type="text"], input[type="number"], textarea {
-    width: 100%;
-    padding: 5px;
-    border: none;
-    border-bottom: 1px solid rgba(92, 64, 51, 0.3);
-    background-color: transparent;
-    font-size: 1em;
-    font-family: Georgia, serif;
-    color: #3a2d1f;
-    box-sizing: border-box;
-}
-
-textarea {
-    min-height: 80px;
-    resize: vertical;
-}
-
-/* CAIXAS INTERNAS COM FUNDO SEMI-TRANSPARENTE */
-.box {
-    border: 2px solid rgba(92, 64, 51, 0.3);
-    border-radius: 8px;
-    padding: 10px;
-    background-color: rgba(245, 238, 218, 0.7); /* Fundo cor de pergaminho com 70% de opacidade */
-}
-
-.box-simples {
-    border: 2px solid rgba(92, 64, 51, 0.3);
-    border-radius: 8px;
-    padding: 5px;
-    text-align: center;
-    background-color: rgba(245, 238, 218, 0.7);
-}
-
-
-/* ==========================================================================
-== ESTILOS GERAIS PARA ELEMENTOS DA FICHA ==
-==========================================================================
-Estilos para títulos, caixas, inputs e outros elementos que se repetem.
-*/
+/* ===========================================================================
+== ELEMENTOS GERAIS DA FICHA ==
+========================================================================== */
 h3 {
     font-family: 'MedievalSharp', cursive;
     text-align: center;
@@ -181,6 +102,7 @@ textarea {
     border: 2px solid #c8bca7;
     border-radius: 8px;
     padding: 10px;
+    background-color: rgba(245, 238, 218, 0.7);
 }
 
 .box-simples {
@@ -188,51 +110,45 @@ textarea {
     border-radius: 8px;
     padding: 5px;
     text-align: center;
+    background-color: rgba(245, 238, 218, 0.7);
 }
 
-/* ==========================================================================
-== CABEÇALHO (HEADER) ==
-==========================================================================
-*/
+/* ===========================================================================
+== CABEÇALHO ==
+========================================================================== */
 .header-info { margin-bottom: 20px; }
 .header-info .character-name { font-family: 'MedievalSharp', cursive; font-size: 2.2em; border-bottom: 2px solid #5c4033; width: 50%; }
 .details-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
 
-/* ==========================================================================
-== GRID PRINCIPAL DA FICHA (CORRIGIDO) ==
-==========================================================================
-*/
+/* ===========================================================================
+== GRID PRINCIPAL DA FICHA ==
+========================================================================== */
 .ficha-grid {
     display: grid;
-    grid-template-columns: 0.8fr 1fr 1.2fr 1.2fr; /* 4 colunas */
-    /* A CORREÇÃO ESTÁ AQUI */
+    grid-template-columns: 0.8fr 1fr 1.2fr 1.2fr;
     grid-template-areas:
         "col-atributos col-pericias col-combate col-personalidade"
         "col-equipamento col-equipamento col-equipamento col-equipamento";
     gap: 20px;
 }
 
-/* Atribuição das áreas aos elementos */
 .coluna-atributos { grid-area: col-atributos; }
 .coluna-pericias { grid-area: col-pericias; }
 .coluna-combate { grid-area: col-combate; }
 .coluna-personalidade { grid-area: col-personalidade; }
 .box.equipamento { grid-area: col-equipamento; margin-top: 15px; }
 
-/* Configuração base para todas as colunas */
 .coluna-atributos, .coluna-pericias, .coluna-combate, .coluna-personalidade {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-
-/* ==========================================================================
-== COLUNA 1: ATRIBUTOS (ATUALIZADO) ==
-==========================================================================
-*/
+/* ===========================================================================
+== COLUNA 1: ATRIBUTOS ==
+========================================================================== */
 .box-simples input {
-    text-align: center; /* MUDANÇA APLICADA AQUI */
+    text-align: center;
     font-weight: bold;
     font-size: 1.5em;
     border: none;
@@ -268,7 +184,7 @@ textarea {
     font-weight: bold;
     border: none;
     padding: 5px 0;
-    text-align: center; /* MUDANÇA APLICADA AQUI */
+    text-align: center;
 }
 
 .atributo-box .modificador-atributo {
@@ -285,11 +201,9 @@ textarea {
     align-items: center;
 }
 
-
-/* ==========================================================================
-== COLUNA 2: PERÍCIAS E RESISTÊNCIAS (ATUALIZADO) ==
-==========================================================================
-*/
+/* ===========================================================================
+== COLUNA 2: PERÍCIAS E RESISTÊNCIAS ==
+========================================================================== */
 .testes_resistencia, .pericias {
     display: flex;
     flex-direction: column;
@@ -299,7 +213,6 @@ textarea {
 
 .teste-item, .pericia-item {
     display: grid;
-    /* Colunas para: Proficiência | Valor | Nome da Perícia | Especialização */
     grid-template-columns: auto 40px 1fr auto;
     align-items: center;
     gap: 10px;
@@ -319,9 +232,8 @@ textarea {
     text-align: left;
 }
 
-/* Estilo para transformar checkboxes em círculos */
 .prof-check, .exp-check {
-    -webkit-appearance: none; /* Remove o estilo padrão */
+    -webkit-appearance: none;
     appearance: none;
     background-color: transparent;
     margin: 0;
@@ -330,14 +242,13 @@ textarea {
     width: 1.15em;
     height: 1.15em;
     border: 0.15em solid currentColor;
-    border-radius: 50%; /* O segredo do círculo! */
+    border-radius: 50%;
     transform: translateY(-0.075em);
     display: grid;
     place-content: center;
     cursor: pointer;
 }
 
-/* Estilo para o círculo interno quando marcado */
 .prof-check::before, .exp-check::before {
     content: "";
     width: 0.65em;
@@ -352,11 +263,9 @@ textarea {
     transform: scale(1);
 }
 
-
-/* ==========================================================================
+/* ===========================================================================
 == COLUNA 3: COMBATE ==
-==========================================================================
-*/
+========================================================================== */
 .combate-superior-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -372,9 +281,7 @@ textarea {
     padding: 10px;
 }
 
-.combate-item.ca-box {
-    border-radius: 15px 15px 40% 40% / 15px 15px 25% 25%;
-}
+.combate-item.ca-box { border-radius: 15px 15px 40% 40% / 15px 15px 25% 25%; }
 
 .combate-item input {
     font-size: 2.5em;
@@ -463,64 +370,57 @@ textarea {
 .hp-btn.cura { background-color: #c3e6cb; color: #155724; }
 .hp-btn.dano { background-color: #f5c6cb; color: #721c24; }
 
-/* ==========================================================================
+/* ===========================================================================
 == COLUNA 4: PERSONALIDADE E TALENTOS ==
-==========================================================================
-*/
-.coluna-personalidade .box.personalidade textarea {
-    min-height: 50px;
-}
+========================================================================== */
+.coluna-personalidade .box.personalidade textarea { min-height: 50px; }
+.coluna-personalidade .box.caracteristicas-talentos { flex-grow: 300px; }
 
-.coluna-personalidade .box.caracteristicas-talentos {
-    flex-grow: 300px; /* Faz esta caixa ocupar mais espaço vertical */
-}
-
-/* ==========================================================================
+/* ===========================================================================
 == LINHA INFERIOR: EQUIPAMENTO ==
-==========================================================================
-*/
+========================================================================== */
 .equipamento-wrapper {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     gap: 20px;
 }
 
-.moedas {
+.moedas { display: flex; flex-direction: column; gap: 10px; }
+.moeda-item { display: flex; align-items: center; gap: 5px; }
+.moeda-item label { font-family: 'MedievalSharp', cursive; width: 30px; }
+.moeda-item input { width: 80px; text-align: center; border: 1px solid #c8bca7; border-radius: 4px; }
+
+.equipamento-lista { flex-grow: 1; }
+.equipamento-lista textarea { height: 100%; min-height: 150px; }
+
+.peso-info {
+    border-left: 2px solid #c8bca7;
+    padding-left: 20px;
+    width: 200px;
+    flex-shrink: 0;
+}
+
+.peso-info h4 {
+    margin: 0 0 10px 0;
+    text-align: center;
+    font-family: 'MedievalSharp', cursive;
+}
+
+#peso-display, #sobrecarga-display {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-}
-
-.moeda-item {
-    display: flex;
-    align-items: center;
     gap: 5px;
+    font-size: 0.9em;
+    margin-bottom: 10px;
 }
 
-.moeda-item label {
-    font-family: 'MedievalSharp', cursive;
-    width: 30px;
-}
+#peso-display { font-weight: bold; }
+#peso-display.sobrecarga-leve { color: #856404; }
+#peso-display.sobrecarga-pesada { color: #721c24; }
 
-.moeda-item input {
-    width: 80px;
-    text-align: center;
-    border: 1px solid #c8bca7;
-    border-radius: 4px;
-}
-
-.equipamento-lista {
-    flex-grow: 1;
-}
-
-.equipamento-lista textarea {
-    height: 100%;
-    min-height: 150px;
-}
-
-/* ==========================================================================
-== RODAPÉ (FOOTER) ==
-==========================================================================
-*/
+/* ===========================================================================
+== RODAPÉ ==
+========================================================================== */
 .button-group {
     margin-top: 30px;
     display: flex;
@@ -540,56 +440,11 @@ button, .back-button {
     flex-grow: 1;
 }
 
-button:hover, .back-button:hover {
-    background-color: #d3c4a5;
-}
-/* ==========================================================================
-== ESTILOS PARA CAPACIDADE DE CARGA E PESO ==
-==========================================================================
-*/
-.equipamento-wrapper {
-    display: grid;
-    grid-template-columns: auto 1fr auto; /* Moedas | Lista | Peso Info */
-    gap: 20px;
-}
+button:hover, .back-button:hover { background-color: #d3c4a5; }
 
-.peso-info {
-    border-left: 2px solid #c8bca7;
-    padding-left: 20px;
-    width: 200px; /* Largura fixa para a coluna de peso */
-    flex-shrink: 0;
-}
-
-.peso-info h4 {
-    margin: 0 0 10px 0;
-    text-align: center;
-    font-family: 'MedievalSharp', cursive;
-}
-
-#peso-display, #sobrecarga-display {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    font-size: 0.9em;
-    margin-bottom: 10px;
-}
-
-#peso-display {
-    font-weight: bold;
-}
-
-/* Cores para indicar sobrecarga */
-#peso-display.sobrecarga-leve {
-    color: #856404; /* Amarelo/Laranja de alerta */
-}
-
-#peso-display.sobrecarga-pesada {
-    color: #721c24; /* Vermelho de perigo */
-}
-/* ==========================================================================
-== ESTILOS PARA O GRIMÓRIO DE MAGIAS ==
-==========================================================================
-*/
+/* ===========================================================================
+== GRIMÓRIO DE MAGIAS ==
+========================================================================== */
 .botao-grimorio {
     display: flex;
     align-items: center;
@@ -598,73 +453,8 @@ button:hover, .back-button:hover {
     margin-top: 15px;
     width: 100%;
 }
-.botao-grimorio svg {
-    width: 24px;
-    height: 24px;
-}
 
-.grimorio-magias {
-    position: fixed;
-    top: 2.5vh; /* Alinha com o pergaminho principal */
-    right: 0;
-    width: 450px;
-    height: 95vh;
-    background-image: url('https://i.pinimg.com/originals/e7/5b/45/e75b453305ed83a540581c3e6b573c5d.jpg');
-    background-size: cover;
-    border: 2px solid #c8bca7;
-    box-shadow: -10px 0 20px rgba(0,0,0,0.5);
-    padding: 20px;
-    overflow-y: auto;
-    
-    /* Animação */
-    transform: translateX(100%); /* Começa escondido à direita */
-    transition: transform 0.5s ease-in-out;
-}
-
-.grimorio-magias.visivel {
-    transform: translateX(0); /* Move para a posição visível */
-}
-
-/* Estilos internos do grimório */
-.grimorio-header, .grimorio-stats, .espacos-magia {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-.grimorio-header input, .grimorio-stats input, .espacos-magia input {
-    background-color: rgba(245, 238, 218, 0.7);
-    border-radius: 4px;
-}
-.nivel-magia {
-    margin-bottom: 15px;
-    border: 1px solid rgba(92, 64, 51, 0.4);
-    padding: 10px;
-    border-radius: 8px;
-}
-.nivel-header {
-    font-family: 'MedievalSharp', cursive;
-    text-align: center;
-    margin-bottom: 10px;
-}
-.lista-magias {
-    min-height: 150px;
-}
-/* ==========================================================================
-== ESTILOS PARA O GRIMÓRIO DE MAGIAS (ATUALIZADO) ==
-==========================================================================
-*/
-.botao-grimorio {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 15px;
-    width: 100%;
-}
-.botao-grimorio svg {
-    width: 24px;
-    height: 24px;
-}
+.botao-grimorio svg { width: 24px; height: 24px; }
 
 .grimorio-magias {
     position: fixed;
@@ -672,158 +462,55 @@ button:hover, .back-button:hover {
     right: 0;
     width: 450px;
     height: 95vh;
-    
-    /* A MUDANÇA ESTÁ AQUI: Usando o mesmo fundo do painel esquerdo */
     background-image: url('https://i.pinimg.com/originals/3a/4b/9a/3a4b9ac3c13b3923592b1159a332a02b.png');
     background-size: 100% 100%;
-    
     border: 2px solid #c8bca7;
     box-shadow: -10px 0 20px rgba(0,0,0,0.5);
-    padding: 40px;
+    padding: 20px;
     overflow-y: auto;
-    
     transform: translateX(100%);
     transition: transform 0.5s ease-in-out;
     z-index: 100;
 }
 
-.grimorio-magias.visivel {
-    transform: translateX(0);
-}
+.grimorio-magias.visivel { transform: translateX(0); }
 
-/* Estilos internos do grimório */
 .grimorio-magias .box, .grimorio-magias .box-simples {
-    background-color: transparent;
-    border: 1px solid rgba(92, 64, 51, 0.4);
+    background-color: transparent
 }
-.grimorio-header, .grimorio-stats, .espacos-magia {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-.grimorio-header input, .grimorio-stats input, .espacos-magia input {
-    background-color: rgba(245, 238, 218, 0.8);
-    border-radius: 4px;
-    text-align: center;
-}
-.nivel-magia {
-    margin-bottom: 15px;
-}
-.nivel-header {
-    font-family: 'MedievalSharp', cursive;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    border-bottom: 1px solid rgba(92, 64, 51, 0.4);
-    padding-bottom: 5px;
-}
-.lista-magias {
-    min-height: 150px;
-    background-color: transparent;
-    border: none;
-}
-/* ==========================================================================
-== CONFIGURAÇÕES GERAIS E FUNDO DA PÁGINA ==
-==========================================================================
-*/
-@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
-/* ... (Estilos do body, container, etc.) ... */
-
-/* ==========================================================================
-== ESTILOS PARA O GRIMÓRIO DE MAGIAS (CORRIGIDO) ==
-==========================================================================
-*/
-.botao-grimorio {
-    /* ... (Estilos do botão) ... */
+/* ========================= */
+/* [Grimório - Painel Lateral] */
+/* ========================= */
+.grimorio-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 350px;
+  height: 100%;
+  background: #f9f4e8;
+  border-left: 3px solid #a67c52;
+  padding: 15px;
+  box-shadow: -3px 0 8px rgba(0,0,0,0.4);
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  z-index: 1000;
 }
 
-.grimorio-magias {
-    position: fixed;
-    top: 2.5vh;
-    right: 0;
-    width: 450px;
-    height: 95vh;
-    background-image: url('https://i.pinimg.com/originals/3a/4b/9a/3a4b9ac3c13b3923592b1159a332a02b.png');
-    background-size: 100% 100%;
-    border: 2px solid #c8bca7;
-    box-shadow: -10px 0 20px rgba(0,0,0,0.5);
-    padding: 20px;
-    overflow-y: auto;
-    transform: translateX(100%);
-    transition: transform 0.5s ease-in-out;
-    z-index: 100;
+.grimorio-panel.hidden {
+  transform: translateX(100%);
 }
 
-.grimorio-magias.visivel {
-    transform: translateX(0);
+.grimorio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Estilos internos do grimório (CORRIGIDOS) */
-.grimorio-header, .grimorio-stats, .espacos-magia {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-.grimorio-header input, .grimorio-stats input, .espacos-magia input {
-    background-color: rgba(245, 238, 218, 0.8);
-    border-radius: 4px;
-    text-align: center;
-    border: 1px solid rgba(92, 64, 51, 0.4);
-}
-.nivel-magia {
-    margin-bottom: 15px;
-    border: 1px solid rgba(92, 64, 51, 0.4);
-    padding: 10px;
-    border-radius: 8px;
-    background-color: rgba(0,0,0,0.1);
-}
-.nivel-header {
-    font-family: 'MedievalSharp', cursive;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-.lista-magias, .lista-magias-dinamica {
-    min-height: 150px; /* Garante que a área de texto seja visível */
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-.input-truque {
-    background-color: rgba(245, 238, 218, 0.8) !important;
-    border-radius: 4px !important;
-    border-bottom: 1px solid rgba(92, 64, 51, 0.4) !important;
-}
-.add-btn {
-    font-size: 1.5em;
-    font-weight: bold;
-    border-radius: 50%;
-    border: 2px solid #5c4033;
-    background-color: #e4d5b7;
-    color: #3a2d1f;
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
-    line-height: 25px;
-    padding: 0;
-}
-.add-btn:hover {
-    background-color: #d3c4a5;
-}
-.level-control {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-.level-control input {
-    flex-grow: 1; /* Faz o input ocupar o espaço disponível */
-}
-.level-control button {
-    flex-shrink: 0; /* Impede que o botão encolha */
-    width: 35px;
-    height: 35px;
-    font-size: 1.5em;
-    padding: 0;
+.grimorio-header .fechar {
+  background: #a67c52;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: bold;
 }
