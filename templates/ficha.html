@@ -19,36 +19,43 @@
         <div class="pergaminho-content">
             <form action="/salvar/{{ ficha.get('id', 'nova') }}" method="POST">
                 
-                <!-- 
-                ==========================================================================
-                == CABEÇALHO (HEADER) ==
-                ==========================================================================
-                Esta seção contém as informações básicas do personagem na parte superior.
-                -->
-                <header class="header-info">
-                    <input type="text" name="nome_personagem" placeholder="Nome do Personagem" value="{{ ficha.get('nome_personagem', '') }}" class="character-name">
-                    <div class="details-grid">
-                        <input type="text" name="classe_nivel" placeholder="Classe & Nível" value="{{ ficha.get('classe_nivel', '') }}">
-                        <input type="text" name="antecedente" placeholder="Antecedente" value="{{ ficha.get('antecedente', '') }}">
-                        <input type="text" name="nome_jogador" placeholder="Nome do Jogador" value="{{ ficha.get('nome_jogador', '') }}">
-                        <input type="text" name="raca" placeholder="Raça" value="{{ ficha.get('raca', '') }}">
-                        <input type="text" name="tendencia" placeholder="Tendência" value="{{ ficha.get('tendencia', '') }}">
-                        <input type="text" name="pontos_experiencia" placeholder="Pontos de Experiência" value="{{ ficha.get('pontos_experiencia', '') }}">
-                        <select name="tamanho" id="tamanho-select">
-                            <option value="minusculo" {% if ficha.get('tamanho') == 'minusculo' %}selected{% endif %}>Minúsculo</option>
-                            <option value="medio" {% if not ficha.get('tamanho') or ficha.get('tamanho') == 'medio' %}selected{% endif %}>Médio</option>
-                            <option value="grande" {% if ficha.get('tamanho') == 'grande' %}selected{% endif %}>Grande</option>
-                        </select>
-                    </div>
-                </header>
-
-                <!-- 
-                ==========================================================================
-                == CORPO PRINCIPAL DA FICHA (MAIN GRID) ==
-                ==========================================================================
-                Esta é a grade principal que organiza todas as colunas da ficha.
-                -->
-                <main class="ficha-grid">
+               <!-- ==========================================================================
+== CABEÇALHO (HEADER) - ATUALIZADO ==
+==========================================================================
+-->
+<header class="header-info">
+    <input type="text" name="nome_personagem" placeholder="Nome do Personagem" value="{{ ficha.get('nome_personagem', '') }}" class="character-name">
+    <div class="details-grid">
+        <!-- O CAMPO DE TEXTO FOI SUBSTITUÍDO POR ESTES DOIS NOVOS CONTROLES -->
+        <select name="classe" id="classe-select">
+            <option {% if not ficha.get('classe') %}selected{% endif %} disabled>Escolha uma Classe</option>
+            <option value="Bárbaro" {% if ficha.get('classe') == 'Bárbaro' %}selected{% endif %}>Bárbaro</option>
+            <option value="Bardo" {% if ficha.get('classe') == 'Bardo' %}selected{% endif %}>Bardo</option>
+            <option value="Bruxo" {% if ficha.get('classe') == 'Bruxo' %}selected{% endif %}>Bruxo</option>
+            <option value="Clérigo" {% if ficha.get('classe') == 'Clérigo' %}selected{% endif %}>Clérigo</option>
+            <option value="Druida" {% if ficha.get('classe') == 'Druida' %}selected{% endif %}>Druida</option>
+            <option value="Feiticeiro" {% if ficha.get('classe') == 'Feiticeiro' %}selected{% endif %}>Feiticeiro</option>
+            <option value="Guerreiro" {% if ficha.get('classe') == 'Guerreiro' %}selected{% endif %}>Guerreiro</option>
+            <option value="Ladino" {% if ficha.get('classe') == 'Ladino' %}selected{% endif %}>Ladino</option>
+            <option value="Mago" {% if ficha.get('classe') == 'Mago' %}selected{% endif %}>Mago</option>
+            <option value="Monge" {% if ficha.get('classe') == 'Monge' %}selected{% endif %}>Monge</option>
+            <option value="Paladino" {% if ficha.get('classe') == 'Paladino' %}selected{% endif %}>Paladino</option>
+            <option value="Patrulheiro" {% if ficha.get('classe') == 'Patrulheiro' %}selected{% endif %}>Patrulheiro</option>
+        </select>
+        <div class="level-control">
+            <input type="number" name="nivel" id="nivel-personagem" value="{{ ficha.get('nivel', '1') }}">
+            <button type="button" id="level-up-btn">+</button>
+        </div>
+        
+        <input type="text" name="antecedente" placeholder="Antecedente" value="{{ ficha.get('antecedente', '') }}">
+        <!-- ... (o resto dos campos do header continua o mesmo) ... -->
+    </div>
+</header>
+              <!-- ==========================================================================
+== CORPO PRINCIPAL DA FICHA (MAIN GRID) - ATUALIZADO ==
+==========================================================================
+-->
+<main class="ficha-grid">
 
                     <!-- 
                     ==========================================================================
@@ -69,8 +76,11 @@
                         </div>
                         <div class="box-simples percepcao-passiva"><input type="text" name="sabedoria_passiva" value="{{ ficha.get('sabedoria_passiva', '10') }}"><label>Sabedoria Passiva (Percepção)</label></div>
                     </div>
+            
 
+                    
                     <!-- 
+                    
                     ==========================================================================
                     == COLUNA 2: PERÍCIAS E RESISTÊNCIAS ==
                     ==========================================================================
@@ -108,16 +118,13 @@
                             <div class="pericia-item" data-atributo="sabedoria"><input type="checkbox" name="sobrevivencia_prof" class="prof-check" {% if ficha.get('sobrevivencia_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Sobrevivência</label><input type="checkbox" name="sobrevivencia_exp" class="exp-check" {% if ficha.get('sobrevivencia_exp') %}checked{% endif %}></div>
                         </div>
                     </div>
-                </div>
-
-                 
+            
                 <!-- 
                 ==========================================================================
                 == COLUNA 3: COMBATE ==
                 ==========================================================================
                 Contém CA, Iniciativa, PV, Dados de Vida e Ataques.
                 -->
-                
                 <div class="coluna-combate">
                     <div class="combate-superior-grid">
                         <div class="box combate-item ca-box"><input type="number" name="classe_armadura" value="{{ ficha.get('classe_armadura', '10') }}"><label>Classe Armd.</label></div>
@@ -127,7 +134,7 @@
                     <div class="box pontos-vida">
                         <div class="pv-header"><label>PV Totais</label><input type="number" id="pontos-vida-maximos" name="pontos_vida_maximos" value="{{ ficha.get('pontos_vida_maximos', '10') }}" class="pv-max"></div>
                         <textarea id="pontos-vida-atuais" name="pontos_vida_atuais">{{ ficha.get('pontos_vida_atuais', '') }}</textarea>
-                        <label class="pv-label">Pontos de Vida Atuais</label>
+                        <label class="pv-label"></label>
                         <div class="hp-controls">
                             <button type="button" id="btn-curar" class="hp-btn cura">+</button>
                             <input type="number" id="hp-mod-valor" class="hp-input" placeholder="Valor">
@@ -141,8 +148,6 @@
                     <div class="dados-vida-morte-grid">
                         <div class="box dados-vida">
                             <div class="dados-vida-header"><label>Total</label><input type="text" name="dados_vida_total" value="{{ ficha.get('dados_vida_total', '') }}"></div>
-                            <textarea name="dados_vida"></textarea>
-                            <label class="dados-vida-label">Dados de Vida</label>
                         </div>
                         <div class="box testes-morte">
                             <div class="sucessos"><label>Sucessos</label><input type="checkbox" name="sucesso1"><input type="checkbox" name="sucesso2"><input type="checkbox" name="sucesso3"></div>
@@ -150,11 +155,57 @@
                             <label class="testes-morte-label">Testes Contra a Morte</label>
                         </div>
                     </div>
-                    <div class="box ataques-magias">
-                        <h3>Ataques e Magias</h3>
-                        <textarea name="ataques_magias">{{ ficha.get('ataques_magias', '') }}</textarea>
+                <!-- ADICIONE O BOTÃO DO GRIMÓRIO NO FINAL DA CAIXA DE ATAQUES E MAGIAS -->
+                <div class="box ataques-magias">
+
+                    <!-- O BOTÃO VAI AQUI -->
+                    <button type="button" id="toggle-grimorio" class="botao-grimorio">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21 6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6Zm-2 12H5V6h14v12Z"/><path d="M7 8h4v2H7V8Zm0 4h10v2H7v-2Z"/></svg>
+                        <span>Grimório</span>
+                    </button>
+                </div>
+
+                <!-- O GRIMÓRIO DE MAGIAS (DENTRO DO FORM, MAS SERÁ POSICIONADO FORA COM CSS) -->
+                <div id="grimorio-magias" class="grimorio-magias">
+                    <div class="grimorio-header">
+                        <input type="text" name="classe_conjuradora" placeholder="Classe de Conjurador" value="{{ ficha.get('classe_conjuradora', '') }}">
+                        <div class="grimorio-stats">
+                            <input type="text" name="habilidade_chave" placeholder="Habilidade Chave" value="{{ ficha.get('habilidade_chave', '') }}">
+                            <input type="text" name="cd_magia" placeholder="CD da Magia" value="{{ ficha.get('cd_magia', '') }}">
+                            <input type="text" name="bonus_ataque_magia" placeholder="Bônus de Ataque" value="{{ ficha.get('bonus_ataque_magia', '') }}">
+                        </div>
+                    </div>
+                    <!-- O GRIMÓRIO DE MAGIAS (DENTRO DO FORM) -->
+<div id="grimorio-magias" class="grimorio-magias">
+    <!-- ... (o header do grimório continua o mesmo) ... -->
+    <div class="grimorio-niveis">
+        
+        <!-- SEÇÃO DE TRUQUES ATUALIZADA -->
+        <div class="nivel-magia">
+            <div class="nivel-header">
+                <span>TRUQUES</span>
+                <!-- O novo botão de adicionar -->
+                <button type="button" id="add-truque-btn" class="add-btn">+</button>
+            </div>
+            <!-- O contêiner onde os truques aparecerão -->
+            <div id="truques-container" class="lista-magias-dinamica">
+                <!-- Os campos de truques serão inseridos aqui pelo JavaScript -->
+            </div>
+            <!-- A textarea escondida que salva os dados para o Python -->
+            <textarea name="truques" id="truques-hidden" style="display:none;">{{ ficha.get('truques', '') }}</textarea>
+        </div>
+         </div>
+                        <!-- Nível 1 -->
+                        <div class="nivel-magia">
+                            <div class="nivel-header"><span>NÍVEL 1</span><div class="espacos-magia"><input type="text" name="espacos_usados_1" placeholder="Usados" value="{{ ficha.get('espacos_usados_1', '') }}"> / <input type="text" name="espacos_total_1" placeholder="Total" value="{{ ficha.get('espacos_total_1', '') }}"></div></div>
+                            <textarea name="magias_nivel_1" class="lista-magias">{{ ficha.get('magias_nivel_1', '') }}</textarea>
+                        </div>
+                        <!-- Repita a estrutura de "Nível 1" para os níveis 2 a 9 -->
                     </div>
                 </div>
+
+            </form>
+        </div>
 
                 <!-- 
                 ==========================================================================
@@ -169,7 +220,7 @@
                     <div class="box personalidade"><label>Defeitos</label><textarea name="defeitos">{{ ficha.get('defeitos', '') }}</textarea></div>
                     <div class="box caracteristicas-talentos"><h3>Características e Talentos</h3><textarea name="caracteristicas_talentos">{{ ficha.get('caracteristicas_talentos', '') }}</textarea></div>
                 </div>
-
+          
                 <!-- 
                 ==========================================================================
                 == LINHA INFERIOR: EQUIPAMENTO ==
@@ -195,8 +246,11 @@
                             <div id="sobrecarga-display"><span>Sobrecarga: >0 kg</span><span>Pesada: >0 kg</span></div>
                         </div>
                     </div>
+                 </div>
                 </div>
+            </div>
             </main>
+           
 
             <!-- 
             ==========================================================================
@@ -334,6 +388,85 @@
             });
             atualizarCargaTotal(); // Carga inicial do peso
         });
+
+ // --- NOVA LÓGICA PARA O GRIMÓRIO RETRÁTIL ---
+        const toggleBtn = document.getElementById('toggle-grimorio');
+        const grimorioPanel = document.getElementById('grimorio-magias');
+        
+        toggleBtn.addEventListener('click', function() {
+            grimorioPanel.classList.toggle('visivel');
+        });
+    </script>
+    <!-- SCRIPT ATUALIZADO NO FINAL DO BODY -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // ... (todo o script de atributos, perícias, peso, PV e grimório retrátil continua aqui) ...
+
+    
+        // SCRIPT COMPLETO E UNIFICADO
+        document.addEventListener('DOMContentLoaded', function() {
+            // ... (Toda a lógica de Atributos, Perícias, Peso, PV) ...
+
+            // --- LÓGICA PARA O GRIMÓRIO RETRÁTIL ---
+            const toggleBtn = document.getElementById('toggle-grimorio');
+            const grimorioPanel = document.getElementById('grimorio-magias');
+            if(toggleBtn && grimorioPanel) {
+                toggleBtn.addEventListener('click', function() {
+                    grimorioPanel.classList.toggle('visivel');
+                });
+            }
+
+            // --- LÓGICA PARA TRUQUES DINÂMICOS ---
+            const truquesContainer = document.getElementById('truques-container');
+            const truquesHidden = document.getElementById('truques-hidden');
+            const addTruqueBtn = document.getElementById('add-truque-btn');
+
+            function salvarTruques() {
+                const inputs = truquesContainer.querySelectorAll('input');
+                const valores = Array.from(inputs).map(input => input.value);
+                truquesHidden.value = valores.join('\n');
+            }
+
+            function criarInputTruque(valor = '') {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'input-truque';
+                input.value = valor;
+                input.placeholder = 'Nome do Truque';
+                input.addEventListener('input', salvarTruques);
+                truquesContainer.appendChild(input);
+            }
+
+            if (truquesHidden && truquesContainer && addTruqueBtn) {
+                const truquesSalvos = truquesHidden.value.split('\n').filter(t => t);
+                if (truquesSalvos.length > 0) {
+                    truquesSalvos.forEach(truque => criarInputTruque(truque));
+                } else {
+                    criarInputTruque();
+                }
+                addTruqueBtn.addEventListener('click', function() {
+                    criarInputTruque();
+                });
+            }
+        });
     </script>
 </body>
 </html>
+
+<!-- SCRIPT ATUALIZADO NO FINAL DO BODY -->
+<script>
+    // ... (todo o script de atributos, perícias, etc. continua aqui) ...
+
+    // --- NOVA LÓGICA PARA O BOTÃO DE LEVEL UP ---
+    document.addEventListener('DOMContentLoaded', function() {
+        const levelUpBtn = document.getElementById('level-up-btn');
+        const nivelInput = document.getElementById('nivel-personagem');
+
+        if (levelUpBtn && nivelInput) {
+            levelUpBtn.addEventListener('click', function() {
+                let nivelAtual = parseInt(nivelInput.value) || 0;
+                nivelInput.value = nivelAtual + 1;
+            });
+        }
+    });
+</script>

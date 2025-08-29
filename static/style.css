@@ -586,3 +586,244 @@ button:hover, .back-button:hover {
 #peso-display.sobrecarga-pesada {
     color: #721c24; /* Vermelho de perigo */
 }
+/* ==========================================================================
+== ESTILOS PARA O GRIMÓRIO DE MAGIAS ==
+==========================================================================
+*/
+.botao-grimorio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    width: 100%;
+}
+.botao-grimorio svg {
+    width: 24px;
+    height: 24px;
+}
+
+.grimorio-magias {
+    position: fixed;
+    top: 2.5vh; /* Alinha com o pergaminho principal */
+    right: 0;
+    width: 450px;
+    height: 95vh;
+    background-image: url('https://i.pinimg.com/originals/e7/5b/45/e75b453305ed83a540581c3e6b573c5d.jpg');
+    background-size: cover;
+    border: 2px solid #c8bca7;
+    box-shadow: -10px 0 20px rgba(0,0,0,0.5);
+    padding: 20px;
+    overflow-y: auto;
+    
+    /* Animação */
+    transform: translateX(100%); /* Começa escondido à direita */
+    transition: transform 0.5s ease-in-out;
+}
+
+.grimorio-magias.visivel {
+    transform: translateX(0); /* Move para a posição visível */
+}
+
+/* Estilos internos do grimório */
+.grimorio-header, .grimorio-stats, .espacos-magia {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.grimorio-header input, .grimorio-stats input, .espacos-magia input {
+    background-color: rgba(245, 238, 218, 0.7);
+    border-radius: 4px;
+}
+.nivel-magia {
+    margin-bottom: 15px;
+    border: 1px solid rgba(92, 64, 51, 0.4);
+    padding: 10px;
+    border-radius: 8px;
+}
+.nivel-header {
+    font-family: 'MedievalSharp', cursive;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.lista-magias {
+    min-height: 150px;
+}
+/* ==========================================================================
+== ESTILOS PARA O GRIMÓRIO DE MAGIAS (ATUALIZADO) ==
+==========================================================================
+*/
+.botao-grimorio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    width: 100%;
+}
+.botao-grimorio svg {
+    width: 24px;
+    height: 24px;
+}
+
+.grimorio-magias {
+    position: fixed;
+    top: 2.5vh;
+    right: 0;
+    width: 450px;
+    height: 95vh;
+    
+    /* A MUDANÇA ESTÁ AQUI: Usando o mesmo fundo do painel esquerdo */
+    background-image: url('https://i.pinimg.com/originals/3a/4b/9a/3a4b9ac3c13b3923592b1159a332a02b.png');
+    background-size: 100% 100%;
+    
+    border: 2px solid #c8bca7;
+    box-shadow: -10px 0 20px rgba(0,0,0,0.5);
+    padding: 40px;
+    overflow-y: auto;
+    
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out;
+    z-index: 100;
+}
+
+.grimorio-magias.visivel {
+    transform: translateX(0);
+}
+
+/* Estilos internos do grimório */
+.grimorio-magias .box, .grimorio-magias .box-simples {
+    background-color: transparent;
+    border: 1px solid rgba(92, 64, 51, 0.4);
+}
+.grimorio-header, .grimorio-stats, .espacos-magia {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.grimorio-header input, .grimorio-stats input, .espacos-magia input {
+    background-color: rgba(245, 238, 218, 0.8);
+    border-radius: 4px;
+    text-align: center;
+}
+.nivel-magia {
+    margin-bottom: 15px;
+}
+.nivel-header {
+    font-family: 'MedievalSharp', cursive;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(92, 64, 51, 0.4);
+    padding-bottom: 5px;
+}
+.lista-magias {
+    min-height: 150px;
+    background-color: transparent;
+    border: none;
+}
+/* ==========================================================================
+== CONFIGURAÇÕES GERAIS E FUNDO DA PÁGINA ==
+==========================================================================
+*/
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+/* ... (Estilos do body, container, etc.) ... */
+
+/* ==========================================================================
+== ESTILOS PARA O GRIMÓRIO DE MAGIAS (CORRIGIDO) ==
+==========================================================================
+*/
+.botao-grimorio {
+    /* ... (Estilos do botão) ... */
+}
+
+.grimorio-magias {
+    position: fixed;
+    top: 2.5vh;
+    right: 0;
+    width: 450px;
+    height: 95vh;
+    background-image: url('https://i.pinimg.com/originals/3a/4b/9a/3a4b9ac3c13b3923592b1159a332a02b.png');
+    background-size: 100% 100%;
+    border: 2px solid #c8bca7;
+    box-shadow: -10px 0 20px rgba(0,0,0,0.5);
+    padding: 20px;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out;
+    z-index: 100;
+}
+
+.grimorio-magias.visivel {
+    transform: translateX(0);
+}
+
+/* Estilos internos do grimório (CORRIGIDOS) */
+.grimorio-header, .grimorio-stats, .espacos-magia {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.grimorio-header input, .grimorio-stats input, .espacos-magia input {
+    background-color: rgba(245, 238, 218, 0.8);
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid rgba(92, 64, 51, 0.4);
+}
+.nivel-magia {
+    margin-bottom: 15px;
+    border: 1px solid rgba(92, 64, 51, 0.4);
+    padding: 10px;
+    border-radius: 8px;
+    background-color: rgba(0,0,0,0.1);
+}
+.nivel-header {
+    font-family: 'MedievalSharp', cursive;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.lista-magias, .lista-magias-dinamica {
+    min-height: 150px; /* Garante que a área de texto seja visível */
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.input-truque {
+    background-color: rgba(245, 238, 218, 0.8) !important;
+    border-radius: 4px !important;
+    border-bottom: 1px solid rgba(92, 64, 51, 0.4) !important;
+}
+.add-btn {
+    font-size: 1.5em;
+    font-weight: bold;
+    border-radius: 50%;
+    border: 2px solid #5c4033;
+    background-color: #e4d5b7;
+    color: #3a2d1f;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    line-height: 25px;
+    padding: 0;
+}
+.add-btn:hover {
+    background-color: #d3c4a5;
+}
+.level-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.level-control input {
+    flex-grow: 1; /* Faz o input ocupar o espaço disponível */
+}
+.level-control button {
+    flex-shrink: 0; /* Impede que o botão encolha */
+    width: 35px;
+    height: 35px;
+    font-size: 1.5em;
+    padding: 0;
+}

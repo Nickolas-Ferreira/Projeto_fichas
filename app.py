@@ -57,14 +57,100 @@ def ver_ficha(ficha_id):
         else:
             return "Ficha não encontrada!", 404
 
+
 @app.route("/salvar/<ficha_id>", methods=["POST"])
 def salvar_ficha(ficha_id):
-    """
-    Rota que recebe os dados do formulário para salvar.
-    Esta é a versão completa e corrigida.
-    """
     fichas = carregar_dados()
     
+    dados_formulario = {
+        # Header (COM A MUDANÇA)
+        "nome_personagem": request.form.get("nome_personagem"),
+        "classe": request.form.get("classe"), # <-- MUDANÇA AQUI
+        "nivel": request.form.get("nivel"),   # <-- MUDANÇA AQUI
+        "antecedente": request.form.get("antecedente"),
+        "nome_jogador": request.form.get("nome_jogador"),
+        "raca": request.form.get("raca"),
+        "tendencia": request.form.get("tendencia"),
+        "pontos_experiencia": request.form.get("pontos_experiencia"),
+        # ... (o resto dos campos continua o mesmo) ...
+    }
+
+    # Lógica para salvar/atualizar a ficha (continua a mesma)
+    if ficha_id == 'nova':
+        dados_formulario['id'] = str(uuid.uuid4())
+        fichas.append(dados_formulario)
+    else:
+        for i, ficha in enumerate(fichas):
+            if ficha.get('id') == ficha_id:
+                dados_formulario['id'] = ficha_id
+                fichas[i] = dados_formulario
+                break
+    
+    dados_formulario = {
+        # ... (todos os campos da ficha principal que já fizemos) ...
+        "caracteristicas_talentos": request.form.get("caracteristicas_talentos"),
+
+        # --- NOVOS CAMPOS DO GRIMÓRIO DE MAGIAS ---
+        "classe_conjuradora": request.form.get("classe_conjuradora"),
+        "habilidade_chave": request.form.get("habilidade_chave"),
+        "cd_magia": request.form.get("cd_magia"),
+        "bonus_ataque_magia": request.form.get("bonus_ataque_magia"),
+
+        # Truques
+        "truques": request.form.get("truques"),
+
+        # Magias de Nível 1 a 9
+        "espacos_total_1": request.form.get("espacos_total_1"),
+        "espacos_usados_1": request.form.get("espacos_usados_1"),
+        "magias_nivel_1": request.form.get("magias_nivel_1"),
+
+        "espacos_total_2": request.form.get("espacos_total_2"),
+        "espacos_usados_2": request.form.get("espacos_usados_2"),
+        "magias_nivel_2": request.form.get("magias_nivel_2"),
+
+        "espacos_total_3": request.form.get("espacos_total_3"),
+        "espacos_usados_3": request.form.get("espacos_usados_3"),
+        "magias_nivel_3": request.form.get("magias_nivel_3"),
+
+        "espacos_total_4": request.form.get("espacos_total_4"),
+        "espacos_usados_4": request.form.get("espacos_usados_4"),
+        "magias_nivel_4": request.form.get("magias_nivel_4"),
+
+        "espacos_total_5": request.form.get("espacos_total_5"),
+        "espacos_usados_5": request.form.get("espacos_usados_5"),
+        "magias_nivel_5": request.form.get("magias_nivel_5"),
+
+        "espacos_total_6": request.form.get("espacos_total_6"),
+        "espacos_usados_6": request.form.get("espacos_usados_6"),
+        "magias_nivel_6": request.form.get("magias_nivel_6"),
+
+        "espacos_total_7": request.form.get("espacos_total_7"),
+        "espacos_usados_7": request.form.get("espacos_usados_7"),
+        "magias_nivel_7": request.form.get("magias_nivel_7"),
+
+        "espacos_total_8": request.form.get("espacos_total_8"),
+        "espacos_usados_8": request.form.get("espacos_usados_8"),
+        "magias_nivel_8": request.form.get("magias_nivel_8"),
+
+        "espacos_total_9": request.form.get("espacos_total_9"),
+        "espacos_usados_9": request.form.get("espacos_usados_9"),
+        "magias_nivel_9": request.form.get("magias_nivel_9"),
+    }
+
+    # Lógica para salvar/atualizar a ficha (continua a mesma)
+    if ficha_id == 'nova':
+        dados_formulario['id'] = str(uuid.uuid4())
+        fichas.append(dados_formulario)
+    else:
+        for i, ficha in enumerate(fichas):
+            if ficha.get('id') == ficha_id:
+                dados_formulario['id'] = ficha_id
+                fichas[i] = dados_formulario
+                break
+    
+    salvar_dados(fichas)
+    return redirect(url_for("ver_ficha", ficha_id=dados_formulario['id']))
+
     dados_formulario = {
         # Header
         "nome_personagem": request.form.get("nome_personagem"),
