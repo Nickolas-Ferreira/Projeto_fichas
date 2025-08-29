@@ -473,44 +473,223 @@ button:hover, .back-button:hover { background-color: #d3c4a5; }
     z-index: 100;
 }
 
-.grimorio-magias.visivel { transform: translateX(0); }
-
-.grimorio-magias .box, .grimorio-magias .box-simples {
-    background-color: transparent
+/* ==========================================================================
+== ESTILOS PARA O GRIMÓRIO DE MAGIAS (CORRIGIDO) ==
+==========================================================================
+*/
+.botao-grimorio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    width: 100%;
 }
-/* ========================= */
-/* [Grimório - Painel Lateral] */
-/* ========================= */
-.grimorio-panel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 350px;
-  height: 100%;
-  background: #f9f4e8;
-  border-left: 3px solid #a67c52;
-  padding: 15px;
-  box-shadow: -3px 0 8px rgba(0,0,0,0.4);
-  overflow-y: auto;
-  transition: transform 0.3s ease;
-  z-index: 1000;
+.botao-grimorio svg {
+    width: 24px;
+    height: 24px;
 }
 
-.grimorio-panel.hidden {
-  transform: translateX(100%);
+.grimorio-magias {
+    position: fixed;
+    top: 2.5vh;
+    right: 0;
+    width: 450px;
+    height: 95vh;
+    
+    /* A CORREÇÃO ESTÁ AQUI: Usando o mesmo fundo do painel esquerdo */
+    background-image: url('https://i.pinimg.com/originals/3a/4b/9a/3a4b9ac3c13b3923592b1159a332a02b.png');
+    background-size: 100% 100%;
+    background-color: #f5eeda; /* Cor de fallback */
+    
+    border: 2px solid #c8bca7;
+    box-shadow: -10px 0 20px rgba(0,0,0,0.5);
+    padding: 40px;
+    overflow-y: auto;
+    
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out;
+    z-index: 100;
 }
 
-.grimorio-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.grimorio-magias.visivel {
+    transform: translateX(0);
 }
 
-.grimorio-header .fechar {
-  background: #a67c52;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-weight: bold;
+/* Estilos internos do grimório (CORRIGIDOS) */
+.grimorio-magias .box, .grimorio-magias .box-simples, .nivel-magia {
+    background-color: transparent;
+    border: 1px solid rgba(92, 64, 51, 0.4);
+}
+.grimorio-header, .grimorio-stats, .espacos-magia {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.grimorio-header input, .grimorio-stats input, .espacos-magia input {
+    background-color: rgba(245, 238, 218, 0.8);
+    border-radius: 4px;
+    text-align: center;
+}
+.nivel-magia {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+}
+.nivel-header {
+    font-family: 'MedievalSharp', cursive;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(92, 64, 51, 0.4);
+    padding-bottom: 5px;
+}
+.lista-magias, .lista-magias-dinamica {
+    min-height: 150px;
+    border: none;
+    background-color: transparent; /* A área geral é transparente */
+}
+/* CORREÇÃO: Damos um fundo aos inputs e textareas individuais */
+.lista-magias, .input-truque {
+    background-color: rgba(245, 238, 218, 0.8) !important;
+    border-radius: 4px !important;
+    border: 1px solid rgba(92, 64, 51, 0.4) !important;
+}
+/* ==========================================================================
+== ESTILOS ADICIONAIS PARA O GRIMÓRIO DINÂMICO ==
+==========================================================================
+Adicione este bloco ao final do seu arquivo style.css
+*/
+.add-btn {
+    font-size: 1.5em;
+    font-weight: bold;
+    border-radius: 50%;
+    border: 2px solid #5c4033;
+    background-color: #e4d5b7;
+    color: #3a2d1f;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    line-height: 25px;
+    padding: 0;
+    flex-shrink: 0;
+}
+.add-btn:hover {
+    background-color: #d3c4a5;
+}
+
+.lista-magias-dinamica {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: auto; /* Remove a altura mínima fixa */
+}
+
+.linha-truque, .linha-magia {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.input-truque, .input-magia {
+    flex-grow: 1; /* Faz o input ocupar o espaço disponível */
+    background-color: rgba(245, 238, 218, 0.8) !important;
+    border-radius: 4px !important;
+    border: 1px solid rgba(92, 64, 51, 0.4) !important;
+    border-bottom: 1px solid rgba(92, 64, 51, 0.4) !important;
+}
+
+.remove-btn {
+    flex-shrink: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 50%;
+    border: 1px solid #721c24;
+    background-color: #f5c6cb;
+    color: #721c24;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    line-height: 22px;
+    padding: 0;
+}
+.remove-btn:hover {
+    background-color: #f1b0b7;
+}
+/* ==========================================================================
+== ESTILOS ADICIONAIS PARA O GRIMÓRIO EXPANSÍVEL ==
+==========================================================================
+Adicione este bloco ao final do seu arquivo style.css
+*/
+.lista-magias-dinamica {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.magia-item {
+    border: 1px solid rgba(92, 64, 51, 0.2);
+    border-radius: 6px;
+    padding: 8px;
+    background-color: rgba(0,0,0,0.05);
+}
+
+.magia-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nome-magia {
+    flex-grow: 1;
+    background-color: rgba(245, 238, 218, 0.8) !important;
+    border-radius: 4px !important;
+    border: 1px solid rgba(92, 64, 51, 0.4) !important;
+}
+
+.toggle-descricao {
+    flex-shrink: 0;
+    border: 1px solid #5c4033;
+    background-color: #e4d5b7;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.toggle-descricao.aberto {
+    transform: rotate(180deg);
+}
+
+.magia-descricao {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(92, 64, 51, 0.2);
+}
+.magia-descricao textarea {
+    width: 100%;
+    min-height: 100px;
+    resize: vertical;
+    background-color: rgba(245, 238, 218, 0.6);
+    border: 1px solid rgba(92, 64, 51, 0.4);
+    border-radius: 4px;
+}
+
+.remove-btn {
+    flex-shrink: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 50%;
+    border: 1px solid #721c24;
+    background-color: #f5c6cb;
+    color: #721c24;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    line-height: 22px;
+    padding: 0;
+}
+.remove-btn:hover {
+    background-color: #f1b0b7;
 }
