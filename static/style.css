@@ -693,3 +693,104 @@ Adicione este bloco ao final do seu arquivo style.css
 .remove-btn:hover {
     background-color: #f1b0b7;
 }
+/* ==========================================================================
+== [K] ESTILOS PARA O CONTADOR DE FLECHAS (ATUALIZADO) ==
+==========================================================================
+*/
+.aljava-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-top: 15px; /* Adiciona um espaço acima */
+    padding: 10px;
+    border: 2px solid rgba(92, 64, 51, 0.3); /* Usa a mesma borda das outras caixas */
+    border-radius: 8px; /* Usa o mesmo raio de borda */
+    background-color: rgba(245, 238, 218, 0.7); /* Usa o mesmo fundo semi-transparente */
+}
+
+.contador-flechas {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.flecha-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #5c4033;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #f5eeda;
+}
+
+.flecha-display input {
+    width: 60px;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    background: transparent;
+}
+
+.flecha-btn {
+    font-size: 2em;
+    font-weight: bold;
+    border-radius: 50%;
+    border: 2px solid #5c4033;
+    background-color: #e4d5b7;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    line-height: 35px;
+    padding: 0;
+}
+/* ==========================================================================
+== [L] ESTILOS PARA A TABELA DE ATAQUES ==
+==========================================================================
+*/
+.box.ataques-magias {
+    position: relative;
+    padding-top: 40px; /* Espaço para o título e o header da tabela */
+}
+
+.box.ataques-magias h3 {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+}
+
+.ataques-tabela-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr; /* Proporção das colunas */
+    gap: 10px;
+    padding: 0 10px;
+    margin-bottom: 5px;
+    font-size: 0.7em;
+    color: #5c4033;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.ataques-tabela-body {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.ataque-linha {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr; /* Mesma proporção do header */
+    gap: 10px;
+}
+
+.ataque-linha input {
+    font-size: 0.9em;
+    text-align: center;
+    border: none;
+    background-color: rgba(228, 213, 183, 0.5); /* Fundo levemente visível */
+    border-radius: 4px;
+}
