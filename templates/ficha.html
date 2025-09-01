@@ -126,18 +126,6 @@
                             <div class="pericia-item" data-atributo="sabedoria"><input type="checkbox" name="sobrevivencia_prof" class="prof-check" {% if ficha.get('sobrevivencia_prof') %}checked{% endif %}><div class="valor-pericia">+0</div><label>Sobrevivência</label><input type="checkbox" name="sobrevivencia_exp" class="exp-check" {% if ficha.get('sobrevivencia_exp') %}checked{% endif %}></div>
                         </div>
                     </div>
-
-                    <!-- NOVO SISTEMA DE FLECHAS MOVIDO PARA CÁ -->
-        <div class="aljava-container">
-            <label>Flechas</label>
-            <div class="contador-flechas">
-                <button type="button" id="rem-flecha-btn" class="flecha-btn">-</button>
-                <div class="flecha-display">
-                    <input type="number" id="quantidade-flechas" name="quantidade_flechas" value="{{ ficha.get('quantidade_flechas', '20') }}">
-                </div>
-                <button type="button" id="add-flecha-btn" class="flecha-btn">+</button>
-            </div>
-        </div>
                 <!-- 
                 ==========================================================================
                 == COLUNA 3: COMBATE ==
@@ -153,17 +141,23 @@
                     <div class="box pontos-vida">
                         <div class="pv-header"><label>PV Totais</label><input type="number" id="pontos-vida-maximos" name="pontos_vida_maximos" value="{{ ficha.get('pontos_vida_maximos', '10') }}" class="pv-max"></div>
                         <textarea id="pontos-vida-atuais" name="pontos_vida_atuais">{{ ficha.get('pontos_vida_atuais', '') }}</textarea>
-                        <label class="pv-label"></label>
+                       <div id="pv-display" class="pv-display"></div>
                         <div class="hp-controls">
                             <button type="button" id="btn-curar" class="hp-btn cura">+</button>
                             <input type="number" id="hp-mod-valor" class="hp-input" placeholder="Valor">
                             <button type="button" id="btn-dano" class="hp-btn dano">-</button>
                         </div>
                     </div>
-                    <div class="box pontos-vida-temp">
-                        <textarea name="pontos_vida_temporarios">{{ ficha.get('pontos_vida_temporarios', '') }}</textarea>
-                        <label class="pv-label">Pontos de Vida Temporários</label>
-                    </div>
+                   <div class="box pontos-vida-temp">
+  <label class="pv-label">Pontos de Vida Temporários</label>
+  <div class="hp-controls">
+    <input type="number" id="hp-temp-valor" class="hp-input" placeholder="Valor">
+    <button type="button" id="btn-temp-add" class="hp-btn cura">+</button>
+  </div>
+</div>
+
+
+
                     <div class="dados-vida-morte-grid">
                         <div class="box dados-vida">
                             <div class="dados-vida-header"><label>Total</label><input type="text" name="dados_vida_total" value="{{ ficha.get('dados_vida_total', '') }}"></div>
@@ -174,34 +168,9 @@
                             <label class="testes-morte-label">Testes Contra a Morte</label>
                         </div>
                     </div>
-                    
-                 <!-- SEÇÃO DE ATAQUES E MAGIAS ATUALIZADA -->
-<div class="box ataques-magias">
-    <div class="ataques-tabela-header">
-        <span>Nome</span>
-        <span>Bônus de Ataque</span>
-        <span>Dano / Tipo</span>
-    </div>
-    <div class="ataques-tabela-body">
-        <!-- Linha 1 -->
-        <div class="ataque-linha">
-            <input type="text" name="ataque_nome_1" value="{{ ficha.get('ataque_nome_1', '') }}">
-            <input type="text" name="ataque_bonus_1" value="{{ ficha.get('ataque_bonus_1', '') }}">
-            <input type="text" name="ataque_dano_1" value="{{ ficha.get('ataque_dano_1', '') }}">
-        </div>
-        <!-- Linha 2 -->
-        <div class="ataque-linha">
-            <input type="text" name="ataque_nome_2" value="{{ ficha.get('ataque_nome_2', '') }}">
-            <input type="text" name="ataque_bonus_2" value="{{ ficha.get('ataque_bonus_2', '') }}">
-            <input type="text" name="ataque_dano_2" value="{{ ficha.get('ataque_dano_2', '') }}">
-        </div>
-        <!-- Linha 3 -->
-        <div class="ataque-linha">
-            <input type="text" name="ataque_nome_3" value="{{ ficha.get('ataque_nome_3', '') }}">
-            <input type="text" name="ataque_bonus_3" value="{{ ficha.get('ataque_bonus_3', '') }}">
-            <input type="text" name="ataque_dano_3" value="{{ ficha.get('ataque_dano_3', '') }}">
-        </div>
-    </div>
+                    <div class="box ataques-magias">
+                        <h3>Ataques e Magias</h3>
+                        <textarea name="ataques_magias">{{ ficha.get('ataques_magias', '') }}</textarea>
                         <button type="button" id="toggle-grimorio" class="botao-grimorio">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21 6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6Zm-2 12H5V6h14v12Z"/><path d="M7 8h4v2H7V8Zm0 4h10v2H7v-2Z"/></svg>
                             <span>Grimório</span>
@@ -310,51 +279,10 @@
     ==========================================================================
     Toda a "magia" interativa da página acontece aqui, dentro de um único bloco.
     -->
-<!-- ... (todo o conteúdo do body e o script anterior) ... -->
-<script>
-   
-    // --- NOVO SCRIPT PARA CÁLCULO DE MODIFICADORES ---
-    document.addEventListener('DOMContentLoaded', function() {
-        
-        // Função que calcula o modificador com base no valor do atributo
-        function calcularModificador(valor) {
-            // A fórmula oficial de D&D: (Valor - 10) / 2, arredondado para baixo.
-            const modificador = Math.floor((parseInt(valor) - 10) / 2);
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
             
-            // Adiciona um sinal de '+' para números positivos e retorna como texto
-            if (modificador >= 0) {
-                return '+' + modificador;
-            } else {
-                return String(modificador);
-            }
-        }
-
-        // Função para atualizar o modificador de um atributo específico
-        function atualizarModificador(atributoBox) {
-            const inputValor = atributoBox.querySelector('.valor-atributo');
-            const divModificador = atributoBox.querySelector('.modificador-atributo');
-            
-            const valor = inputValor.value || 10; // Usa 10 se o campo estiver vazio
-            divModificador.textContent = calcularModificador(valor);
-        }
-
-        // Pega todas as caixas de atributo
-        const todosAtributos = document.querySelectorAll('.atributo-box');
-
-        // Para cada caixa de atributo...
-        todosAtributos.forEach(function(box) {
-            // 1. Atualiza o modificador quando a página carrega
-            atualizarModificador(box);
-
-            // 2. Adiciona um "ouvinte" que atualiza o modificador toda vez que o valor do input muda
-            const input = box.querySelector('.valor-atributo');
-            input.addEventListener('input', function() {
-                atualizarModificador(box);
-            });
-        });
-    });
-
-     // --- LÓGICA DE ATRIBUTOS E PERÍCIAS ---
+            // --- PARTE 1: LÓGICA DE ATRIBUTOS, PERÍCIAS E PESO ---
             function calcularModificador(valor) {
                 const mod = Math.floor((parseInt(valor) - 10) / 2);
                 return mod >= 0 ? '+' + mod : String(mod);
@@ -370,173 +298,124 @@
                 const valor = inputValor.value || 10;
                 divModificador.textContent = calcularModificador(valor);
                 atualizarTodasAsPericias();
+                if (atributoBox.dataset.atributo === 'forca') {
+                    atualizarCargaTotal();
+                }
             }
 
             function atualizarTodasAsPericias() {
                 const bonusProficiencia = parseBonus(document.getElementById('bonus-proficiencia').value);
-                const todasAsPericias = document.querySelectorAll('.pericia-item');
-
-                todasAsPericias.forEach(pericia => {
-                    const nomeAtributo = pericia.dataset.atributo;
+                const todosOsTestes = document.querySelectorAll('.pericia-item, .teste-item');
+                todosOsTestes.forEach(item => {
+                    const nomeAtributo = item.dataset.atributo;
                     const modAtributoEl = document.querySelector(`.atributo-box[data-atributo="${nomeAtributo}"] .modificador-atributo`);
                     const modAtributo = parseBonus(modAtributoEl.textContent);
-                    const profCheck = pericia.querySelector('.prof-check');
-                    const bonusFinal = modAtributo + (profCheck.checked ? bonusProficiencia : 0);
-                    const valorPericiaEl = pericia.querySelector('.valor-pericia');
+                    const profCheck = item.querySelector('.prof-check');
+                    const expCheck = item.querySelector('.exp-check');
+                    let bonusProfTotal = 0;
+                    if (expCheck && expCheck.checked) {
+                        bonusProfTotal = bonusProficiencia * 2;
+                    } else if (profCheck.checked) {
+                        bonusProfTotal = bonusProficiencia;
+                    }
+                    const bonusFinal = modAtributo + bonusProfTotal;
+                    const valorPericiaEl = item.querySelector('.valor-pericia');
                     valorPericiaEl.textContent = bonusFinal >= 0 ? '+' + bonusFinal : String(bonusFinal);
                 });
             }
 
-            const todosAtributos = document.querySelectorAll('.atributo-box');
-            todosAtributos.forEach(box => {
-                atualizarModificador(box);
-                box.querySelector('.valor-atributo').addEventListener('input', () => atualizarModificador(box));
-            });
-
-            const todosProfChecks = document.querySelectorAll('.prof-check');
-            todosProfChecks.forEach(check => {
-                check.addEventListener('change', atualizarTodasAsPericias);
-            });
-
-            document.getElementById('bonus-proficiencia').addEventListener('input', atualizarTodasAsPericias);
-
-            
- // --- LÓGICA DE CONTROLE DE PONTOS DE VIDA --- 
- {
-            const pvAtuaisEl = document.getElementById('pontos-vida-atuais');
-            const pvMaximosEl = document.getElementById('pontos-vida-maximos');
-            const valorModEl = document.getElementById('hp-mod-valor');
-            const btnCurar = document.getElementById('btn-curar');
-            const btnDano = document.getElementById('btn-dano');
-
-            if (btnCurar) {
-                btnCurar.addEventListener('click', function() {
-                    let valorCura = parseInt(valorModEl.value) || 0;
-                    let pvAtuais = parseInt(pvAtuaisEl.value) || 0;
-                    let pvMaximos = parseInt(pvMaximosEl.value) || 0;
-                    let novoPv = Math.min(pvAtuais + valorCura, pvMaximos);
-                    pvAtuaisEl.value = novoPv;
-                    valorModEl.value = '';
-                });
+            function atualizarCargaTotal() {
+                const forcaInput = document.querySelector('.atributo-box[data-atributo="forca"] .valor-atributo');
+                const tamanhoSelect = document.getElementById('tamanho-select');
+                const equipamentoTextarea = document.getElementById('equipamento-textarea');
+                const pesoDisplay = document.getElementById('peso-display');
+                const sobrecargaDisplay = document.getElementById('sobrecarga-display');
+                let multiplicadorTamanho = 1;
+                if (tamanhoSelect.value === 'minusculo') multiplicadorTamanho = 0.5;
+                if (tamanhoSelect.value === 'grande') multiplicadorTamanho = 2;
+                const valorForca = parseInt(forcaInput.value) || 0;
+                const capacidadeMax = valorForca * 7.5 * multiplicadorTamanho;
+                const sobrecargaLeve = valorForca * 2.5 * multiplicadorTamanho;
+                const sobrecargaPesada = valorForca * 5 * multiplicadorTamanho;
+                let pesoMoedas = 0;
+                document.querySelectorAll('.moeda-item input').forEach(input => { pesoMoedas += parseInt(input.value) || 0; });
+                pesoMoedas = pesoMoedas / 100;
+                let pesoItens = 0;
+                const regex = /\((\d+\.?\d*)\s*kg\)/gi;
+                let match;
+                while ((match = regex.exec(equipamentoTextarea.value)) !== null) { pesoItens += parseFloat(match[1]); }
+                const cargaTotal = (pesoMoedas + pesoItens);
+                pesoDisplay.innerHTML = `<span>Carga Atual: ${cargaTotal.toFixed(2)} kg</span><span>Carga Máxima: ${capacidadeMax.toFixed(2)} kg</span>`;
+                sobrecargaDisplay.innerHTML = `<span>Sobrecarga: >${sobrecargaLeve.toFixed(2)} kg</span><span>Pesada: >${sobrecargaPesada.toFixed(2)} kg</span>`;
+                pesoDisplay.classList.remove('sobrecarga-leve', 'sobrecarga-pesada');
+                if (cargaTotal > sobrecargaPesada) {
+                    pesoDisplay.classList.add('sobrecarga-pesada');
+                } else if (cargaTotal > sobrecargaLeve) {
+                    pesoDisplay.classList.add('sobrecarga-leve');
+                }
             }
 
-            if (btnDano) {
-                btnDano.addEventListener('click', function() {
-                    let valorDano = parseInt(valorModEl.value) || 0;
-                    let pvAtuais = parseInt(pvAtuaisEl.value) || 0;
-                    let novoPv = Math.max(pvAtuais - valorDano, 0);
-                    pvAtuaisEl.value = novoPv;
-                    valorModEl.value = '';
-                });
-            }
-        };
-document.addEventListener('DOMContentLoaded', function() {
+            // --- PARTE 2: LÓGICA DE CONTROLE DE PONTOS DE VIDA ---
+{
+    const pvAtuaisEl = document.getElementById('pontos-vida-atuais');
+    const pvMaximosEl = document.getElementById('pontos-vida-maximos');
+    const valorModEl = document.getElementById('hp-mod-valor');
+    const btnCurar = document.getElementById('btn-curar');
+    const btnDano = document.getElementById('btn-dano');
 
-    
-    // --- NOVA LÓGICA DE CÁLCULO DE PESO ---
-    function atualizarCargaTotal() {
-        // 1. Pega os elementos necessários da página
-        const forcaInput = document.querySelector('.atributo-box[data-atributo="forca"] .valor-atributo');
-        const tamanhoSelect = document.getElementById('tamanho-select');
-        const equipamentoTextarea = document.getElementById('equipamento-textarea');
-        const pesoDisplay = document.getElementById('peso-display');
-        const sobrecargaDisplay = document.getElementById('sobrecarga-display');
+    // --- TEMPORÁRIOS ---
+    const valorTempEl = document.getElementById('hp-temp-valor');
+    const btnTempAdd = document.getElementById('btn-temp-add');
 
-        // 2. Calcula o multiplicador de tamanho
-        let multiplicadorTamanho = 1;
-        if (tamanhoSelect.value === 'minusculo') multiplicadorTamanho = 0.5;
-        if (tamanhoSelect.value === 'grande') multiplicadorTamanho = 2;
+    let pvTemporarios = 0; // variável que guarda os temporários
 
-        // 3. Calcula a capacidade de carga com base na Força e Tamanho
-        const valorForca = parseInt(forcaInput.value) || 0;
-        const capacidadeMax = valorForca * 7.5 * multiplicadorTamanho;
-        const sobrecargaLeve = valorForca * 2.5 * multiplicadorTamanho;
-        const sobrecargaPesada = valorForca * 5 * multiplicadorTamanho;
-
-        // 4. Calcula o peso das moedas (50 moedas ≈ 0.5 kg)
-        let pesoMoedas = 0;
-        document.querySelectorAll('.moeda-item input').forEach(input => {
-            pesoMoedas += parseInt(input.value) || 0;
-        });
-        pesoMoedas = pesoMoedas / 100;
-
-        // 5. Calcula o peso dos itens no equipamento
-        // Procura por números seguidos de "kg" no texto, ex: "Espada Longa (1.5kg)"
-        let pesoItens = 0;
-        const regex = /\((\d+\.?\d*)\s*kg\)/gi;
-        let match;
-        while ((match = regex.exec(equipamentoTextarea.value)) !== null) {
-            pesoItens += parseFloat(match[1]);
-        }
-
-        // 6. Calcula a carga total e atualiza o display
-        const cargaTotal = (pesoMoedas + pesoItens).toFixed(2);
-        
-        pesoDisplay.innerHTML = `<span>Carga Atual: ${cargaTotal} kg</span><span>Carga Máxima: ${capacidadeMax.toFixed(2)} kg</span>`;
-        sobrecargaDisplay.innerHTML = `<span>Sobrecarga: >${sobrecargaLeve.toFixed(2)} kg</span><span>Pesada: >${sobrecargaPesada.toFixed(2)} kg</span>`;
-
-        // 7. Muda a cor do display com base na sobrecarga
-        pesoDisplay.classList.remove('sobrecarga-leve', 'sobrecarga-pesada');
-        if (cargaTotal > sobrecargaPesada) {
-            pesoDisplay.classList.add('sobrecarga-pesada');
-        } else if (cargaTotal > sobrecargaLeve) {
-            pesoDisplay.classList.add('sobrecarga-leve');
-        }
+    // Exibição grande
+    function atualizarPVExibidos() {
+        let pvAtuais = parseInt(pvAtuaisEl.value) || 0;
+        let pvExibidos = pvAtuais + pvTemporarios;
+        document.getElementById("pv-display").textContent = pvExibidos;
     }
 
-    // --- INICIALIZAÇÃO E EVENT LISTENERS ---
-    // ... (listeners existentes para atributos e perícias) ...
+    // --- CURAR (PV normais) ---
+    if (btnCurar) {
+        btnCurar.addEventListener('click', function() {
+            let valorCura = parseInt(valorModEl.value) || 0;
+            let pvAtuais = parseInt(pvAtuaisEl.value) || 0;
+            let pvMaximos = parseInt(pvMaximosEl.value) || 0;
+            let novoPv = Math.min(pvAtuais + valorCura, pvMaximos);
+            pvAtuaisEl.value = novoPv;
+            valorModEl.value = '';
+            atualizarPVExibidos();
+        });
+    }
 
-    // Adiciona "ouvintes" para os campos que afetam o peso
-    document.querySelector('.atributo-box[data-atributo="forca"] .valor-atributo').addEventListener('input', atualizarCargaTotal);
-    document.getElementById('tamanho-select').addEventListener('change', atualizarCargaTotal);
-    document.getElementById('equipamento-textarea').addEventListener('input', atualizarCargaTotal);
-    document.querySelectorAll('.moeda-item input').forEach(input => {
-        input.addEventListener('input', atualizarCargaTotal);
-    });
+    // --- DANO (PV normais) ---
+    if (btnDano) {
+        btnDano.addEventListener('click', function() {
+            let valorDano = parseInt(valorModEl.value) || 0;
+            let pvAtuais = parseInt(pvAtuaisEl.value) || 0;
+            let novoPv = Math.max(pvAtuais - valorDano, 0);
+            pvAtuaisEl.value = novoPv;
+            valorModEl.value = '';
+            atualizarPVExibidos();
+        });
+    }
 
-    // Chama a função uma vez no início para calcular os valores iniciais
-    atualizarCargaTotal();
-});
+    // --- ADICIONAR TEMPORÁRIOS ---
+    if (btnTempAdd) {
+        btnTempAdd.addEventListener('click', function() {
+            let valor = parseInt(valorTempEl.value) || 0;
+            pvTemporarios += valor; // soma os temporários
+            valorTempEl.value = '';
+            atualizarPVExibidos();
+        });
+    }
 
-// Função ATUALIZADA para calcular perícias e resistências
-function atualizarTodasAsPericias() {
-    const bonusProficiencia = parseBonus(document.getElementById('bonus-proficiencia').value);
-    const todosOsTestes = document.querySelectorAll('.pericia-item, .teste-item');
-
-    todosOsTestes.forEach(item => {
-        const nomeAtributo = item.dataset.atributo;
-        const modAtributoEl = document.querySelector(`.atributo-box[data-atributo="${nomeAtributo}"] .modificador-atributo`);
-        const modAtributo = parseBonus(modAtributoEl.textContent);
-        
-        const profCheck = item.querySelector('.prof-check');
-        const expCheck = item.querySelector('.exp-check'); // Pega o novo checkbox
-        
-        let bonusProfTotal = 0;
-        if (expCheck && expCheck.checked) {
-            // Se especialização estiver marcada, dobra a proficiência
-            bonusProfTotal = bonusProficiencia * 2;
-        } else if (profCheck.checked) {
-            // Se apenas proficiência estiver marcada, usa o valor normal
-            bonusProfTotal = bonusProficiencia;
-        }
-
-        const bonusFinal = modAtributo + bonusProfTotal;
-
-        const valorPericiaEl = item.querySelector('.valor-pericia');
-        valorPericiaEl.textContent = bonusFinal >= 0 ? '+' + bonusFinal : String(bonusFinal);
-    });
+    // Atualiza ao carregar
+    document.addEventListener('DOMContentLoaded', atualizarPVExibidos);
 }
 
-// ... (Event Listeners para atributos e prof-check continuam os mesmos) ...
-
-// NOVO "OUVINTE" para os checkboxes de especialização
-const todosExpChecks = document.querySelectorAll('.exp-check');
-todosExpChecks.forEach(check => {
-    check.addEventListener('change', atualizarTodasAsPericias);
-});
-{
- // --- LÓGICA DO GRIMÓRIO (RETRÁTIL E DINÂMICO) ---
+            // --- LÓGICA DO GRIMÓRIO (RETRÁTIL E DINÂMICO) ---
             const toggleBtn = document.getElementById('toggle-grimorio');
             const grimorioPanel = document.getElementById('grimorio-magias');
             if(toggleBtn && grimorioPanel) {
@@ -641,40 +520,7 @@ todosExpChecks.forEach(check => {
             for (let i = 1; i <= 9; i++) {
                 setupDynamicSpellList(`magia-${i}`, `magias-nivel-${i}-container`, `magias-nivel-${i}-hidden`, `add-magia-${i}-btn`, `Magia de Nível ${i}`);
             }
-        };
-
-{
-        // ---------------------------------------------------------------
-        // [F7] CONTADOR DE FLECHAS (NOVA FUNÇÃO)
-        // ---------------------------------------------------------------
-        function configurarContadorFlechas() {
-            const addBtn = document.getElementById('add-flecha-btn');
-            const remBtn = document.getElementById('rem-flecha-btn');
-            const quantidadeInput = document.getElementById('quantidade-flechas');
-
-            if (addBtn && remBtn && quantidadeInput) {
-                addBtn.addEventListener('click', () => {
-                    let atual = parseInt(quantidadeInput.value, 10) || 0;
-                    quantidadeInput.value = atual + 1;
-                });
-
-                remBtn.addEventListener('click', () => {
-                    let atual = parseInt(quantidadeInput.value, 10) || 0;
-                    quantidadeInput.value = Math.max(0, atual - 1); // Não permite valores negativos
-                });
-            }
-        }
-
-        // ---------------------------------------------------------------
-        // [F8] INICIALIZAÇÃO GERAL (ATUALIZADA)
-        // ---------------------------------------------------------------
-        document.addEventListener('DOMContentLoaded', function () {
-            // ... (Todas as outras inicializações continuam aqui) ...
-
-            // Contador de Flechas
-            configurarContadorFlechas(); 
         });
-    };
-</script>
+    </script>
 </body>
 </html>

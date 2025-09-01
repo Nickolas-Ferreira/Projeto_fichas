@@ -269,7 +269,7 @@ textarea {
 .combate-superior-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 15px;
+    gap: 1px;
 }
 
 .combate-item {
@@ -346,11 +346,11 @@ textarea {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding-top: 10px;
+    padding-top: 5px;
 }
 
 .hp-input {
-    width: 70px !important;
+    width: 90px !important;
     text-align: center;
     font-weight: bold;
     border: 1px solid #c8bca7 !important;
@@ -360,11 +360,11 @@ textarea {
 .hp-btn {
     font-size: 1.5em;
     font-weight: bold;
-    border-radius: 50%;
+    border-radius: 60%;
     border: 2px solid #5c4033;
     cursor: pointer;
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
 }
 
 .hp-btn.cura { background-color: #c3e6cb; color: #155724; }
